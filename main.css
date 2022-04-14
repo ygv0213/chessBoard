@@ -6,6 +6,25 @@ body{
     height: 900px;
 }
 
+#divtable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(50px * 8 + 100px);
+    height: calc(50px * 8 + 100px);
+    background-color: rgb(40, 219, 219);
+    border: 2.5px solid black;
+}
+#backcolor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 2px solid rgb(0, 0, 0);
+    width: calc(53px * 8);
+    height: calc(53px * 8);
+    background-color: rgb(255, 255, 255);
+}
+
 table{
     border-collapse: collapse;
 }
@@ -15,8 +34,8 @@ td{
     border: 1px solid black;
 }
 tr:nth-child(odd) td:nth-child(even){
-    background-color: rgb(73, 25, 25);
+    background-color: rgb(65, 17, 17);
 }
 tr:nth-child(even) td:nth-child(odd){
-    background-color: rgb(73, 25, 25);
+    background-color: rgb(65, 17, 17);
 }
