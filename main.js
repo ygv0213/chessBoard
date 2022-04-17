@@ -106,7 +106,7 @@ window.addEventListener('load', (e)=>{
         */
         console.log(e.target)
         if(e.target.tagName === "TD" || "IMG" ){
-            arrClickEvents.push(e.target.tagName);
+            arrClickEvents.push(e.target);
             if(arrClickEvents.length < 2){
                 arrClickEvents[0].style.outline = "2px solid red";
             }else{
