@@ -12,6 +12,10 @@ class piece {
         img.setAttribute('src', this.img);
         cell.appendChild(img);
     }
+
+    getIndex(){
+        return [this.row, this.col];
+    }
 }
 
 window.addEventListener('load', (e)=>{
@@ -28,6 +32,8 @@ window.addEventListener('load', (e)=>{
     let whitePieces = [];
     let blackPieces = [];
 
+    let moves = [[],[]];
+
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
 
@@ -38,14 +44,57 @@ window.addEventListener('load', (e)=>{
     divtable.appendChild(backcolor);
 
     table.addEventListener('click',(e)=>{
+        if(moves[1].length > 0){
+            moves[0] = moves[1];
+            for(let i=0;i<moves[1].length;i++){
+                moves[1][i].classList.remove("moves");
+            }
+            moves[1] = [];
+        }
+        
         if(e.target.tagName === "TD" || "IMG"){
-            arrCount.push(e.target)
+            arrCount.push(e.target);
             if(arrCount.length === 1){
                 arrCount[0].classList.add("selected");
             }else if(arrCount.length === 2){
                 arrCount[1].classList.add("selected");
                 arrCount[0].classList.remove("selected");
                 arrCount.shift();
+            }
+        }
+        if(e.target.tagName === "IMG"){
+            let row = e.target.parentElement.parentElement.rowIndex;
+            let cell = e.target.parentElement.cellIndex;
+            if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico" || e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
+                for(let i= -1 ;i < 2;i++){
+                    for(let j=-1;j < 2;j++){
+                        try{
+                            table.rows[row + i].cells[cell + j].classList.add("moves");
+                            moves[1].push(table.rows[row + i].cells[cell + j]);
+                        }catch(e){
+
+                        }
+                    }
+                }
+            }
+            if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
+                for(let i= 0 ;i < 8;i++){
+                    try{
+                        //here i am
+
+
+
+
+
+
+                        
+                        table.rows[row].cells[cell - i].classList.add("moves");
+                        moves[1].push(table.rows[row - i].cells[cell]);
+                    }catch(e){
+
+                    }
+                }
+                console.log(moves)
             }
         }
     });
@@ -113,7 +162,4 @@ window.addEventListener('load', (e)=>{
         
     }
     backcolor.appendChild(table);
-
-    console.log(blackPieces)
-    console.log(whitePieces)
 });

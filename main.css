@@ -52,3 +52,6 @@ img{
 .selected{
     background-color: rgb(186, 255, 232)!important;
 }
+.moves{
+    background-color: rgb(47, 255, 0)!important;
+}
