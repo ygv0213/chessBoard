@@ -65,7 +65,23 @@ window.addEventListener('load', (e)=>{
         if(e.target.tagName === "IMG"){
             let row = e.target.parentElement.parentElement.rowIndex;
             let cell = e.target.parentElement.cellIndex;
-            if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico" || e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
+            if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
+                try{
+                    table.rows[row + 1].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row + 1].cells[cell]);
+                }catch(e){
+
+                }
+            }
+            if(e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
+                try{
+                    table.rows[row - 1].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row - 1].cells[cell]);
+                }catch(e){
+
+                }
+            }
+            if(e.target.getAttribute("src") === "assetes/icons/white/king.ico" || e.target.getAttribute("src") === "assetes/icons/black/king.ico"){
                 for(let i= -1 ;i < 2;i++){
                     for(let j=-1;j < 2;j++){
                         try{
@@ -77,25 +93,119 @@ window.addEventListener('load', (e)=>{
                     }
                 }
             }
-            if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
-                for(let i= 0 ;i < 8;i++){
+            if(e.target.getAttribute("src") === "assetes/icons/white/hores.ico" || e.target.getAttribute("src") === "assetes/icons/black/hores.ico"){
+                
+                try{
+                    table.rows[row + 1].cells[cell + 2].classList.add("moves");
+                    moves[1].push(table.rows[row + 1].cells[cell + 2]);
+                }catch(e){
+
+                }
+            }
+            if(e.target.getAttribute("src") === "assetes/icons/white/bishop.ico" || e.target.getAttribute("src") === "assetes/icons/black/bishop.ico"){
+                for(let j= 0;j<8 ;j++){
                     try{
-                        //here i am
-
-
-
-
-
-
-                        
-                        table.rows[row].cells[cell - i].classList.add("moves");
-                        moves[1].push(table.rows[row - i].cells[cell]);
+                        table.rows[row + j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell + j]);
                     }catch(e){
-
                     }
                 }
-                console.log(moves)
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell - j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row + j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell - j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell + j]);
+                    }catch(e){
+                    }
+                }
+            } if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
+                for(let j= -7;j<8 ;j++){
+                    try{
+                        table.rows[row].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row].cells[cell + j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= -7;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell]);
+                    }catch(e){
+                    }
+                }
             }
+            if(e.target.getAttribute("src") === "assetes/icons/white/quinn.ico" || e.target.getAttribute("src") === "assetes/icons/black/quinn.ico"){
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row + j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell + j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell - j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row + j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell - j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell + j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row - j].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row + j].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row].cells[cell + j]);
+                    }catch(e){
+                    }
+                }
+                for(let j= 0;j<8 ;j++){
+                    try{
+                        table.rows[row].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row].cells[cell - j]);
+                    }catch(e){
+                    }
+                }
+            }
+            
         }
     });
 
