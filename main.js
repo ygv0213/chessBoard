@@ -13,9 +13,6 @@ class piece {
         cell.appendChild(img);
     }
 
-    getIndex(){
-        return [this.row, this.col];
-    }
 }
 
 window.addEventListener('load', (e)=>{
@@ -32,7 +29,8 @@ window.addEventListener('load', (e)=>{
     let whitePieces = [];
     let blackPieces = [];
 
-    let moves = [[],[]];
+    let moves = [[],[]]; // the array help me to track what is clicked
+    let clicks = []; //the array help me to save the privuse and current click
 
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
@@ -51,8 +49,11 @@ window.addEventListener('load', (e)=>{
             }
             moves[1] = [];
         }
+
+
         
         if(e.target.tagName === "TD" || "IMG"){
+
             arrCount.push(e.target);
             if(arrCount.length === 1){
                 arrCount[0].classList.add("selected");
@@ -83,13 +84,13 @@ window.addEventListener('load', (e)=>{
             }
             if(e.target.getAttribute("src") === "assetes/icons/white/king.ico" || e.target.getAttribute("src") === "assetes/icons/black/king.ico"){
                 for(let i= -1 ;i < 2;i++){
-                    for(let j=-1;j < 2;j++){
-                        try{
-                            table.rows[row + i].cells[cell + j].classList.add("moves");
-                            moves[1].push(table.rows[row + i].cells[cell + j]);
-                        }catch(e){
-
-                        }
+                    for(let j= -1;j < 2;j++){
+                            try{
+                                table.rows[row + i].cells[cell + j].classList.add("moves");
+                                moves[1].push(table.rows[row + i].cells[cell + j]);
+                            }catch(e){
+    
+                            }
                     }
                 }
             }
@@ -98,6 +99,48 @@ window.addEventListener('load', (e)=>{
                 try{
                     table.rows[row + 1].cells[cell + 2].classList.add("moves");
                     moves[1].push(table.rows[row + 1].cells[cell + 2]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row - 1].cells[cell - 2].classList.add("moves");
+                    moves[1].push(table.rows[row - 1].cells[cell - 2]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row + 2].cells[cell - 1].classList.add("moves");
+                    moves[1].push(table.rows[row + 2].cells[cell - 1]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row - 2].cells[cell + 1].classList.add("moves");
+                    moves[1].push(table.rows[row - 2].cells[cell + 1]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row - 2].cells[cell - 1].classList.add("moves");
+                    moves[1].push(table.rows[row - 2].cells[cell - 1]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row - 1].cells[cell + 2].classList.add("moves");
+                    moves[1].push(table.rows[row - 1].cells[cell + 2]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row + 1].cells[cell - 2].classList.add("moves");
+                    moves[1].push(table.rows[row + 1].cells[cell - 2]);
+                }catch(e){
+
+                }
+                try{
+                    table.rows[row + 2].cells[cell + 1].classList.add("moves");
+                    moves[1].push(table.rows[row + 2].cells[cell + 1]);
                 }catch(e){
 
                 }
@@ -272,4 +315,5 @@ window.addEventListener('load', (e)=>{
         
     }
     backcolor.appendChild(table);
+
 });
