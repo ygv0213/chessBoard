@@ -8,6 +8,7 @@ class piece {
     }
 
     visual(cell){
+        //help to visual the piece on the board
         let img = document.createElement("img");
         img.setAttribute('src', this.img);
         cell.appendChild(img);
@@ -42,6 +43,8 @@ window.addEventListener('load', (e)=>{
     divtable.appendChild(backcolor);
 
     table.addEventListener('click',(e)=>{
+        //this here help to track who sopose to stay in class moves and who is not 
+        //when you click on anather player the moves update to the new selected player
         if(moves[1].length > 0){
             moves[0] = moves[1];
             for(let i=0;i<moves[1].length;i++){
@@ -53,7 +56,7 @@ window.addEventListener('load', (e)=>{
 
         
         if(e.target.tagName === "TD" || "IMG"){
-
+            //this help me to track after the clickes save the element we clicked on aand add him to delected class
             arrCount.push(e.target);
             if(arrCount.length === 1){
                 arrCount[0].classList.add("selected");
@@ -64,6 +67,7 @@ window.addEventListener('load', (e)=>{
             }
         }
         if(e.target.tagName === "IMG"){
+            //this part of the code tack the index of the clicked solider and definde what is option to move on the board
             let row = e.target.parentElement.parentElement.rowIndex;
             let cell = e.target.parentElement.cellIndex;
             if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
@@ -253,6 +257,7 @@ window.addEventListener('load', (e)=>{
     });
 
     for(let i = 0;i < 8;i++){
+        //this loop draw the pieces to the board and make the board
         tr = document.createElement('tr');
         for(let j = 0; j< 8;j++){
             td = document.createElement('td');
