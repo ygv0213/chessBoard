@@ -16,6 +16,203 @@ class piece {
 
 }
 
+function posibleMoves(e, table, moves){
+    if(e.target.tagName === "IMG"){
+        //this part of the code tack the index of the clicked solider and definde what is option to move on the board
+        let row = e.target.parentElement.parentElement.rowIndex;
+        let cell = e.target.parentElement.cellIndex;
+        if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
+            try{
+                table.rows[row + 1].cells[cell].classList.add("moves");
+                moves[1].push(table.rows[row + 1].cells[cell]);
+            }catch(e){
+
+            }
+        }
+        if(e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
+            try{
+                table.rows[row - 1].cells[cell].classList.add("moves");
+                moves[1].push(table.rows[row - 1].cells[cell]);
+            }catch(e){
+
+            }
+        }
+        if(e.target.getAttribute("src") === "assetes/icons/white/king.ico" || e.target.getAttribute("src") === "assetes/icons/black/king.ico"){
+            for(let i= -1 ;i < 2;i++){
+                for(let j= -1;j < 2;j++){
+                        try{
+                            table.rows[row + i].cells[cell + j].classList.add("moves");
+                            moves[1].push(table.rows[row + i].cells[cell + j]);
+                        }catch(e){
+
+                        }
+                }
+            }
+        }
+        if(e.target.getAttribute("src") === "assetes/icons/white/hores.ico" || e.target.getAttribute("src") === "assetes/icons/black/hores.ico"){
+            
+            try{
+                table.rows[row + 1].cells[cell + 2].classList.add("moves");
+                moves[1].push(table.rows[row + 1].cells[cell + 2]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row - 1].cells[cell - 2].classList.add("moves");
+                moves[1].push(table.rows[row - 1].cells[cell - 2]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row + 2].cells[cell - 1].classList.add("moves");
+                moves[1].push(table.rows[row + 2].cells[cell - 1]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row - 2].cells[cell + 1].classList.add("moves");
+                moves[1].push(table.rows[row - 2].cells[cell + 1]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row - 2].cells[cell - 1].classList.add("moves");
+                moves[1].push(table.rows[row - 2].cells[cell - 1]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row - 1].cells[cell + 2].classList.add("moves");
+                moves[1].push(table.rows[row - 1].cells[cell + 2]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row + 1].cells[cell - 2].classList.add("moves");
+                moves[1].push(table.rows[row + 1].cells[cell - 2]);
+            }catch(e){
+
+            }
+            try{
+                table.rows[row + 2].cells[cell + 1].classList.add("moves");
+                moves[1].push(table.rows[row + 2].cells[cell + 1]);
+            }catch(e){
+
+            }
+        }
+        if(e.target.getAttribute("src") === "assetes/icons/white/bishop.ico" || e.target.getAttribute("src") === "assetes/icons/black/bishop.ico"){
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row + j].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row + j].cells[cell + j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell - j].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell - j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row + j].cells[cell - j].classList.add("moves");
+                    moves[1].push(table.rows[row + j].cells[cell - j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell + j]);
+                }catch(e){
+                }
+            }
+        } if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
+            for(let j= -7;j<8 ;j++){
+                try{
+                    table.rows[row].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row].cells[cell + j]);
+                }catch(e){
+                }
+            }
+            for(let j= -7;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell]);
+                }catch(e){
+                }
+            }
+        }
+        if(e.target.getAttribute("src") === "assetes/icons/white/quinn.ico" || e.target.getAttribute("src") === "assetes/icons/black/quinn.ico"){
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row + j].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row + j].cells[cell + j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell - j].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell - j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row + j].cells[cell - j].classList.add("moves");
+                    moves[1].push(table.rows[row + j].cells[cell - j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell + j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row - j].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row - j].cells[cell]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row + j].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row + j].cells[cell]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row].cells[cell + j].classList.add("moves");
+                    moves[1].push(table.rows[row].cells[cell + j]);
+                }catch(e){
+                }
+            }
+            for(let j= 0;j<8 ;j++){
+                try{
+                    table.rows[row].cells[cell - j].classList.add("moves");
+                    moves[1].push(table.rows[row].cells[cell - j]);
+                }catch(e){
+                }
+            }
+        }
+        
+    }
+}
+
+function newPiece(i, j, type, color, td){
+    //this add new piece to the board and visual it
+    let tmp = new piece(i, j, type, color);
+    tmp.visual(td);
+}
+
 window.addEventListener('load', (e)=>{
     let divtable = document.createElement('div');
     let backcolor = document.createElement('div');
@@ -27,11 +224,7 @@ window.addEventListener('load', (e)=>{
 
     let arrCount = [];
 
-    let whitePieces = [];
-    let blackPieces = [];
-
     let moves = [[],[]]; // the array help me to track what is clicked
-    let clicks = []; //the array help me to save the privuse and current click
 
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
@@ -66,194 +259,8 @@ window.addEventListener('load', (e)=>{
                 arrCount.shift();
             }
         }
-        if(e.target.tagName === "IMG"){
-            //this part of the code tack the index of the clicked solider and definde what is option to move on the board
-            let row = e.target.parentElement.parentElement.rowIndex;
-            let cell = e.target.parentElement.cellIndex;
-            if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
-                try{
-                    table.rows[row + 1].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row + 1].cells[cell]);
-                }catch(e){
-
-                }
-            }
-            if(e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
-                try{
-                    table.rows[row - 1].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row - 1].cells[cell]);
-                }catch(e){
-
-                }
-            }
-            if(e.target.getAttribute("src") === "assetes/icons/white/king.ico" || e.target.getAttribute("src") === "assetes/icons/black/king.ico"){
-                for(let i= -1 ;i < 2;i++){
-                    for(let j= -1;j < 2;j++){
-                            try{
-                                table.rows[row + i].cells[cell + j].classList.add("moves");
-                                moves[1].push(table.rows[row + i].cells[cell + j]);
-                            }catch(e){
-    
-                            }
-                    }
-                }
-            }
-            if(e.target.getAttribute("src") === "assetes/icons/white/hores.ico" || e.target.getAttribute("src") === "assetes/icons/black/hores.ico"){
-                
-                try{
-                    table.rows[row + 1].cells[cell + 2].classList.add("moves");
-                    moves[1].push(table.rows[row + 1].cells[cell + 2]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row - 1].cells[cell - 2].classList.add("moves");
-                    moves[1].push(table.rows[row - 1].cells[cell - 2]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row + 2].cells[cell - 1].classList.add("moves");
-                    moves[1].push(table.rows[row + 2].cells[cell - 1]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row - 2].cells[cell + 1].classList.add("moves");
-                    moves[1].push(table.rows[row - 2].cells[cell + 1]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row - 2].cells[cell - 1].classList.add("moves");
-                    moves[1].push(table.rows[row - 2].cells[cell - 1]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row - 1].cells[cell + 2].classList.add("moves");
-                    moves[1].push(table.rows[row - 1].cells[cell + 2]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row + 1].cells[cell - 2].classList.add("moves");
-                    moves[1].push(table.rows[row + 1].cells[cell - 2]);
-                }catch(e){
-
-                }
-                try{
-                    table.rows[row + 2].cells[cell + 1].classList.add("moves");
-                    moves[1].push(table.rows[row + 2].cells[cell + 1]);
-                }catch(e){
-
-                }
-            }
-            if(e.target.getAttribute("src") === "assetes/icons/white/bishop.ico" || e.target.getAttribute("src") === "assetes/icons/black/bishop.ico"){
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row + j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell - j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row + j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell - j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-            } if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
-                for(let j= -7;j<8 ;j++){
-                    try{
-                        table.rows[row].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= -7;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell]);
-                    }catch(e){
-                    }
-                }
-            }
-            if(e.target.getAttribute("src") === "assetes/icons/white/quinn.ico" || e.target.getAttribute("src") === "assetes/icons/black/quinn.ico"){
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row + j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell - j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row + j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell - j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row - j].cells[cell].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row + j].cells[cell].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row].cells[cell + j]);
-                    }catch(e){
-                    }
-                }
-                for(let j= 0;j<8 ;j++){
-                    try{
-                        table.rows[row].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row].cells[cell - j]);
-                    }catch(e){
-                    }
-                }
-            }
-            
-        }
+        
+        posibleMoves(e, table, moves);
     });
 
     for(let i = 0;i < 8;i++){
@@ -263,55 +270,31 @@ window.addEventListener('load', (e)=>{
             td = document.createElement('td');
             if(i === 0){
                 if(j === 0 || j == 7){
-                    let tmp = new piece(i, j, "wall", WHITE_PLAYER);
-                    tmp.visual(td);
-                    whitePieces.push(tmp);
+                    newPiece(i, j, "wall", WHITE_PLAYER, td);
                 }else if(j === 1 || j == 6){
-                    let tmp = new piece(i, j, "hores", WHITE_PLAYER);
-                    tmp.visual(td);
-                    whitePieces.push(tmp);
+                    newPiece(i, j, "hores", WHITE_PLAYER, td);
                 }else if(j === 2 || j == 5){
-                    let tmp = new piece(i, j, "bishop", WHITE_PLAYER);
-                    tmp.visual(td);
-                    whitePieces.push(tmp);
+                    newPiece(i, j, "bishop", WHITE_PLAYER, td);
                 }else if(j === 3){
-                    let tmp = new piece(i, j, "quinn", WHITE_PLAYER);
-                    tmp.visual(td);
-                    whitePieces.push(tmp);
+                    newPiece(i, j, "quinn", WHITE_PLAYER, td);
                 }else if(j === 4){
-                    let tmp = new piece(i, j, "king", WHITE_PLAYER);
-                    tmp.visual(td);
-                    whitePieces.push(tmp);
+                    newPiece(i, j, "king", WHITE_PLAYER, td);
                 }
             }else if(i === 1){
-                let tmp = new piece(i, j, "solider", WHITE_PLAYER);
-                tmp.visual(td);
-                whitePieces.push(tmp);
+                newPiece(i, j, "solider", WHITE_PLAYER, td);
             }else if(i === 6){
-                let tmp = new piece(i, j, "solider", BLACK_PLAYER);
-                tmp.visual(td);
-                blackPieces.push(tmp);
+                newPiece(i, j, "solider", BLACK_PLAYER, td);
             }else if(i === 7){
                 if(j === 0 || j == 7){
-                    let tmp = new piece(i, j, "wall", BLACK_PLAYER);
-                    tmp.visual(td);
-                    blackPieces.push(tmp);
+                    newPiece(i, j, "wall", BLACK_PLAYER, td);
                 }else if(j === 1 || j == 6){
-                    let tmp = new piece(i, j, "hores", BLACK_PLAYER);
-                    tmp.visual(td);
-                    blackPieces.push(tmp);
+                    newPiece(i, j, "hores", BLACK_PLAYER, td);
                 }else if(j === 2 || j == 5){
-                    let tmp = new piece(i, j, "bishop", BLACK_PLAYER);
-                    tmp.visual(td);
-                    blackPieces.push(tmp);
+                    newPiece(i, j, "bishop", BLACK_PLAYER, td);
                 }else if(j === 3){
-                    let tmp = new piece(i, j, "quinn", BLACK_PLAYER);
-                    tmp.visual(td);
-                    blackPieces.push(tmp);
+                    newPiece(i, j, "quinn", BLACK_PLAYER, td);
                 }else if(j === 4){
-                    let tmp = new piece(i, j, "king", BLACK_PLAYER);
-                    tmp.visual(td);
-                    blackPieces.push(tmp);
+                    newPiece(i, j, "king", BLACK_PLAYER, td);
                 }
             }
             tr.appendChild(td);
