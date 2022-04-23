@@ -15,6 +15,9 @@ class piece {
         cell.appendChild(img);
     }
 
+    move(piece){
+        piece = this;
+    }
 }
 
 function posibleMoves(event, table, moves){
@@ -205,7 +208,6 @@ function posibleMoves(event, table, moves){
                 }
             }
         }
-        
     }
 }
 
@@ -227,6 +229,7 @@ window.addEventListener('load', (e)=>{
     let arrCount = []; //help to handle selected items on the board
 
     let moves = [[],[]]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
+    let clickes = [];
 
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
@@ -238,33 +241,50 @@ window.addEventListener('load', (e)=>{
     divtable.appendChild(backcolor);
 
     table.addEventListener('click',(event)=>{
-        //this here help to track who sopose to stay in class moves and who is not 
+        //this here help to track who need to stay in class moves and who is not 
         //when you click on anather player the moves update to the new selected player
-        console.log(moves)
         if(moves[1].length > 0){
             moves[0] = moves[1];
             for(let i=0;i<moves[1].length;i++){
                 moves[1][i].classList.remove("moves");
             }
-            console.log(moves)
             moves[1] = [];
         }
 
-
-        
         if(event.target.tagName === "TD" || "IMG"){
             //this help me to track after the clickes save the element we clicked on and add him to selected class
             arrCount.push(event.target);
             if(arrCount.length === 1){
                 arrCount[0].classList.add("selected");
+                //function here
             }else if(arrCount.length === 2){
                 arrCount[1].classList.add("selected");
                 arrCount[0].classList.remove("selected");
+                //function here
                 arrCount.shift();
             }
         }
-        
-        posibleMoves(event, table, moves);
+
+        posibleMoves(event, table, moves);//shows the posible moves to evry click
+
+        if(event.target.tagName === "TD" || "IMG"){
+            /*
+            here we going to save the current click and privus click
+            if privus click is img and current click is in posible moves so move the piece
+            */
+            if(event.target.tagName === "IMG"){
+                clickes = [];
+                clickes.push(event.target);
+            }else if(clickes.length === 1 && event.target.tagName === "TD"){
+                    clickes.push(event.target);
+            }
+            if(clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1){
+                clickes[1].appendChild(clickes[0]);
+                clickes = [];
+            }else if(clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1){
+                clickes = [];
+            }
+        }
     });
 
     for(let i = 0;i < 8;i++){
