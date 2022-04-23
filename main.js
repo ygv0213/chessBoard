@@ -1,10 +1,11 @@
 class piece {
-    constructor(row, col, type, player) {
-      this.row = row;
-      this.col = col;
-      this.type = type;
-      this.player = player;
-      this.img = "assetes/icons/" + this.player + "/" + this.type + ".ico";
+    constructor(row, col, type, playerColor) {
+        // type => "wall"/"solider"/"bishop" ...
+        this.row = row;
+        this.col = col;
+        this.type = type;
+        this.playerColor = playerColor;
+        this.img = "assetes/icons/" + this.playerColor + "/" + this.type + ".ico";
     }
 
     visual(cell){
@@ -16,190 +17,191 @@ class piece {
 
 }
 
-function posibleMoves(e, table, moves){
-    if(e.target.tagName === "IMG"){
-        //this part of the code tack the index of the clicked solider and definde what is option to move on the board
-        let row = e.target.parentElement.parentElement.rowIndex;
-        let cell = e.target.parentElement.cellIndex;
-        if(e.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
+function posibleMoves(event, table, moves){
+    //this function tack the index of the clicked solider and definde what is the option to move on the board
+    //moves => array to store all posible moves to use later
+    if(event.target.tagName === "IMG"){
+        let row = event.target.parentElement.parentElement.rowIndex;
+        let cell = event.target.parentElement.cellIndex;
+        if(event.target.getAttribute("src") === "assetes/icons/white/solider.ico"){
             try{
                 table.rows[row + 1].cells[cell].classList.add("moves");
                 moves[1].push(table.rows[row + 1].cells[cell]);
-            }catch(e){
+            }catch(error){
 
             }
         }
-        if(e.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
+        if(event.target.getAttribute("src") === "assetes/icons/black/solider.ico"){
             try{
                 table.rows[row - 1].cells[cell].classList.add("moves");
                 moves[1].push(table.rows[row - 1].cells[cell]);
-            }catch(e){
+            }catch(error){
 
             }
         }
-        if(e.target.getAttribute("src") === "assetes/icons/white/king.ico" || e.target.getAttribute("src") === "assetes/icons/black/king.ico"){
+        if(event.target.getAttribute("src") === "assetes/icons/white/king.ico" || event.target.getAttribute("src") === "assetes/icons/black/king.ico"){
             for(let i= -1 ;i < 2;i++){
                 for(let j= -1;j < 2;j++){
                         try{
                             table.rows[row + i].cells[cell + j].classList.add("moves");
                             moves[1].push(table.rows[row + i].cells[cell + j]);
-                        }catch(e){
+                        }catch(error){
 
                         }
                 }
             }
         }
-        if(e.target.getAttribute("src") === "assetes/icons/white/hores.ico" || e.target.getAttribute("src") === "assetes/icons/black/hores.ico"){
+        if(event.target.getAttribute("src") === "assetes/icons/white/hores.ico" || event.target.getAttribute("src") === "assetes/icons/black/hores.ico"){
             
             try{
                 table.rows[row + 1].cells[cell + 2].classList.add("moves");
                 moves[1].push(table.rows[row + 1].cells[cell + 2]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row - 1].cells[cell - 2].classList.add("moves");
                 moves[1].push(table.rows[row - 1].cells[cell - 2]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row + 2].cells[cell - 1].classList.add("moves");
                 moves[1].push(table.rows[row + 2].cells[cell - 1]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row - 2].cells[cell + 1].classList.add("moves");
                 moves[1].push(table.rows[row - 2].cells[cell + 1]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row - 2].cells[cell - 1].classList.add("moves");
                 moves[1].push(table.rows[row - 2].cells[cell - 1]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row - 1].cells[cell + 2].classList.add("moves");
                 moves[1].push(table.rows[row - 1].cells[cell + 2]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row + 1].cells[cell - 2].classList.add("moves");
                 moves[1].push(table.rows[row + 1].cells[cell - 2]);
-            }catch(e){
+            }catch(error){
 
             }
             try{
                 table.rows[row + 2].cells[cell + 1].classList.add("moves");
                 moves[1].push(table.rows[row + 2].cells[cell + 1]);
-            }catch(e){
+            }catch(error){
 
             }
         }
-        if(e.target.getAttribute("src") === "assetes/icons/white/bishop.ico" || e.target.getAttribute("src") === "assetes/icons/black/bishop.ico"){
+        if(event.target.getAttribute("src") === "assetes/icons/white/bishop.ico" || event.target.getAttribute("src") === "assetes/icons/black/bishop.ico"){
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row + j].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row + j].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell - j].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell - j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row + j].cells[cell - j].classList.add("moves");
                     moves[1].push(table.rows[row + j].cells[cell - j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
-        } if(e.target.getAttribute("src") === "assetes/icons/white/wall.ico" || e.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
+        } if(event.target.getAttribute("src") === "assetes/icons/white/wall.ico" || event.target.getAttribute("src") === "assetes/icons/black/wall.ico"){
             for(let j= -7;j<8 ;j++){
                 try{
                     table.rows[row].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= -7;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell]);
-                }catch(e){
+                }catch(error){
                 }
             }
         }
-        if(e.target.getAttribute("src") === "assetes/icons/white/quinn.ico" || e.target.getAttribute("src") === "assetes/icons/black/quinn.ico"){
+        if(event.target.getAttribute("src") === "assetes/icons/white/quinn.ico" || event.target.getAttribute("src") === "assetes/icons/black/quinn.ico"){
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row + j].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row + j].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell - j].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell - j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row + j].cells[cell - j].classList.add("moves");
                     moves[1].push(table.rows[row + j].cells[cell - j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row - j].cells[cell].classList.add("moves");
                     moves[1].push(table.rows[row - j].cells[cell]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row + j].cells[cell].classList.add("moves");
                     moves[1].push(table.rows[row + j].cells[cell]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row].cells[cell + j].classList.add("moves");
                     moves[1].push(table.rows[row].cells[cell + j]);
-                }catch(e){
+                }catch(error){
                 }
             }
             for(let j= 0;j<8 ;j++){
                 try{
                     table.rows[row].cells[cell - j].classList.add("moves");
                     moves[1].push(table.rows[row].cells[cell - j]);
-                }catch(e){
+                }catch(error){
                 }
             }
         }
@@ -222,9 +224,9 @@ window.addEventListener('load', (e)=>{
     let tr = document.createElement('tr');
     let td = document.createElement('td');
 
-    let arrCount = [];
+    let arrCount = []; //help to handle selected items on the board
 
-    let moves = [[],[]]; // the array help me to track what is clicked
+    let moves = [[],[]]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
 
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
@@ -235,22 +237,24 @@ window.addEventListener('load', (e)=>{
     body.appendChild(divtable);
     divtable.appendChild(backcolor);
 
-    table.addEventListener('click',(e)=>{
+    table.addEventListener('click',(event)=>{
         //this here help to track who sopose to stay in class moves and who is not 
         //when you click on anather player the moves update to the new selected player
+        console.log(moves)
         if(moves[1].length > 0){
             moves[0] = moves[1];
             for(let i=0;i<moves[1].length;i++){
                 moves[1][i].classList.remove("moves");
             }
+            console.log(moves)
             moves[1] = [];
         }
 
 
         
-        if(e.target.tagName === "TD" || "IMG"){
-            //this help me to track after the clickes save the element we clicked on aand add him to delected class
-            arrCount.push(e.target);
+        if(event.target.tagName === "TD" || "IMG"){
+            //this help me to track after the clickes save the element we clicked on and add him to selected class
+            arrCount.push(event.target);
             if(arrCount.length === 1){
                 arrCount[0].classList.add("selected");
             }else if(arrCount.length === 2){
@@ -260,7 +264,7 @@ window.addEventListener('load', (e)=>{
             }
         }
         
-        posibleMoves(e, table, moves);
+        posibleMoves(event, table, moves);
     });
 
     for(let i = 0;i < 8;i++){
