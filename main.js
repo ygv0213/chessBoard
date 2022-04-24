@@ -143,26 +143,41 @@ window.addEventListener('load', (e) => {
     let divtable = document.createElement('div');
     let backcolor = document.createElement('div');
     let visualTurn = document.createElement('p');
-
     let body = document.getElementsByTagName('body')[0];
     let table = document.createElement('table');
+    let choseColor = document.getElementById("choseColor1");
+    let color = document.getElementsByName("color");
 
     let tr = document.createElement('tr');
     let td = document.createElement('td');
 
     let arrCount = []; //help to handle selected items on the board
+    let turn = "";//this is global varible to get the color from user
+
+    choseColor.addEventListener('click', (event)=>{
+        //this function chenges the turn varble to selected color
+        if(event.target.id === "sendBtn"){
+            if(color[0].checked === true){
+                turn = color[0].value;
+            }else{
+                turn = color[1].value;
+            }
+            choseColor.style.display = "none";
+            visualTurn.textContent = "This is " + turn + " turn now";
+            visualTurn.id = "visualTurn";
+            divtable.style.display = "flex";
+        }
+    });
 
     let moves = [[], []]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
     let clickes = [];
-    let turn = "white";
 
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
 
     divtable.id = "divtable";
     backcolor.id = "backcolor";
-    visualTurn.textContent = "This is " + turn + " turn now";
-    visualTurn.id = "visualTurn";
+    console.log(turn + "kghkjgh")
 
     divtable.appendChild(visualTurn);
     body.appendChild(divtable);
@@ -262,5 +277,4 @@ window.addEventListener('load', (e) => {
 
     }
     backcolor.appendChild(table);
-
 });
