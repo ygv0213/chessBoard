@@ -1,9 +1,25 @@
 body{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 900px;
+}
+
+#visualTurn{
+    width: calc(50px * 8 + 100px);
+    height: 30px;
+    font-size: 24px;
+    font-weight: 900;
+    background-color: rgb(255, 0, 0);
+    margin-block:0px;
+    outline: 2px solid black;
+    padding-block: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 0);
 }
 
 #divtable{

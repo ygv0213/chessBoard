@@ -216,6 +216,8 @@ function newPiece(i, j, type, color, td) {
 window.addEventListener('load', (e) => {
     let divtable = document.createElement('div');
     let backcolor = document.createElement('div');
+    let visualTurn = document.createElement('p');
+
     let body = document.getElementsByTagName('body')[0];
     let table = document.createElement('table');
 
@@ -233,7 +235,10 @@ window.addEventListener('load', (e) => {
 
     divtable.id = "divtable";
     backcolor.id = "backcolor";
+    visualTurn.textContent = "This is " + turn +" turn now";
+    visualTurn.id = "visualTurn";
 
+    body.appendChild(visualTurn);
     body.appendChild(divtable);
     divtable.appendChild(backcolor);
 
@@ -283,6 +288,9 @@ window.addEventListener('load', (e) => {
                 } else if (turn === "black") {
                     turn = "white";
                 }
+                
+                visualTurn.textContent = "This is " + turn +" turn now";
+
             } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/')[5] !== turn) {
                 clickes = [];
             }
