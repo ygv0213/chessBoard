@@ -54,153 +54,79 @@ function posibleMoves(event, table, moves, turn) {
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/hores.ico") {
             //here i am
-            try {
-                table.rows[row + 1].cells[cell + 2].classList.add("moves");
-                moves[1].push(table.rows[row + 1].cells[cell + 2]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row - 1].cells[cell - 2].classList.add("moves");
-                moves[1].push(table.rows[row - 1].cells[cell - 2]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row + 2].cells[cell - 1].classList.add("moves");
-                moves[1].push(table.rows[row + 2].cells[cell - 1]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row - 2].cells[cell + 1].classList.add("moves");
-                moves[1].push(table.rows[row - 2].cells[cell + 1]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row - 2].cells[cell - 1].classList.add("moves");
-                moves[1].push(table.rows[row - 2].cells[cell - 1]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row - 1].cells[cell + 2].classList.add("moves");
-                moves[1].push(table.rows[row - 1].cells[cell + 2]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row + 1].cells[cell - 2].classList.add("moves");
-                moves[1].push(table.rows[row + 1].cells[cell - 2]);
-            } catch (error) {
-
-            }
-            try {
-                table.rows[row + 2].cells[cell + 1].classList.add("moves");
-                moves[1].push(table.rows[row + 2].cells[cell + 1]);
-            } catch (error) {
-
-            }
+            let options = [[2, 1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2], [2, -1]];
+            options.forEach((option)=>{
+                if (row + option[0] < 8 && row + option[0] > -1 && cell + option[1] < 8 && cell + option[1] > -1){
+                    if (!table.rows[row + option[0]].cells[cell + option[1]].hasChildNodes()) {
+                        table.rows[row + option[0]].cells[cell + option[1]].classList.add("moves");
+                        moves[1].push(table.rows[row + option[0]].cells[cell + option[1]]);
+                    }
+                }
+            });
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/bishop.ico") {
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row + j].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row + j].cells[cell + j]);
-                } catch (error) {
-                }
+            for (let j = -7; j < 8; j++) {
+                if (row + j < 8 && row + j > -1 && cell + j < 8 && cell + j > -1) {
+                    if (!table.rows[row + j].cells[cell + j].hasChildNodes()) {
+                        table.rows[row + j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell + j]);
+                    }
+                } 
             }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row - j].cells[cell - j].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell - j]);
-                } catch (error) {
-                }
+            for (let j = -7; j < 8; j++) {
+                if (row + j < 8 && row + j > -1 && cell - j < 8 && cell - j > -1) {
+                    if (!table.rows[row + j].cells[cell -j].hasChildNodes()) {
+                        table.rows[row + j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell - j]);
+                    }
+                } 
             }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row + j].cells[cell - j].classList.add("moves");
-                    moves[1].push(table.rows[row + j].cells[cell - j]);
-                } catch (error) {
-                }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row - j].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell + j]);
-                } catch (error) {
-                }
-            }
-        } if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/wall.ico") {
+        }
+        if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/wall.ico") {
             for (let j = -7; j < 8; j++) {
                 if (cell + j < 8 && cell + j > -1 && (j !== 0)) {
-                    table.rows[row].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row].cells[cell + j]);
+                    if(!table.rows[row].cells[cell + j].hasChildNodes()){
+                        table.rows[row].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row].cells[cell + j]);
+                    }
                 }
-            }
-            for (let j = -7; j < 8; j++) {
                 if (row - j > -1 && row - j < 8 && (j !== 0)) {
-                    table.rows[row - j].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell]);
+                    if (!table.rows[row - j].cells[cell].hasChildNodes()){
+                        table.rows[row - j].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell]);
+                    }
                 }
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/quinn.ico") {
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row + j].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row + j].cells[cell + j]);
-                } catch (error) {
-                }
+            for (let j = -7; j < 8; j++) {
+                if (row + j < 8 && row + j > -1 && cell + j < 8 && cell + j > -1) {
+                    if (!table.rows[row + j].cells[cell + j].hasChildNodes()) {
+                        table.rows[row + j].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell + j]);
+                    }
+                } 
             }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row - j].cells[cell - j].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell - j]);
-                } catch (error) {
-                }
+            for (let j = -7; j < 8; j++) {
+                if (row + j < 8 && row + j > -1 && cell - j < 8 && cell - j > -1) {
+                    if (!table.rows[row + j].cells[cell -j].hasChildNodes()) {
+                        table.rows[row + j].cells[cell - j].classList.add("moves");
+                        moves[1].push(table.rows[row + j].cells[cell - j]);
+                    }
+                } 
             }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row + j].cells[cell - j].classList.add("moves");
-                    moves[1].push(table.rows[row + j].cells[cell - j]);
-                } catch (error) {
+            for (let j = -7; j < 8; j++) {
+                if (cell + j < 8 && cell + j > -1 && (j !== 0)) {
+                    if (!table.rows[row].cells[cell + j].hasChildNodes()){
+                        table.rows[row].cells[cell + j].classList.add("moves");
+                        moves[1].push(table.rows[row].cells[cell + j]);
+                    }
                 }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row - j].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell + j]);
-                } catch (error) {
-                }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row - j].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row - j].cells[cell]);
-                } catch (error) {
-                }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row + j].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row + j].cells[cell]);
-                } catch (error) {
-                }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row].cells[cell + j].classList.add("moves");
-                    moves[1].push(table.rows[row].cells[cell + j]);
-                } catch (error) {
-                }
-            }
-            for (let j = 0; j < 8; j++) {
-                try {
-                    table.rows[row].cells[cell - j].classList.add("moves");
-                    moves[1].push(table.rows[row].cells[cell - j]);
-                } catch (error) {
+                if (row - j > -1 && row - j < 8 && (j !== 0)) {
+                    if (!table.rows[row - j].cells[cell].hasChildNodes()){
+                        table.rows[row - j].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - j].cells[cell]);
+                    }
                 }
             }
         }
@@ -235,10 +161,10 @@ window.addEventListener('load', (e) => {
 
     divtable.id = "divtable";
     backcolor.id = "backcolor";
-    visualTurn.textContent = "This is " + turn +" turn now";
+    visualTurn.textContent = "This is " + turn + " turn now";
     visualTurn.id = "visualTurn";
 
-    body.appendChild(visualTurn);
+    divtable.appendChild(visualTurn);
     body.appendChild(divtable);
     divtable.appendChild(backcolor);
 
@@ -269,7 +195,7 @@ window.addEventListener('load', (e) => {
 
         posibleMoves(event, table, moves, turn);//shows the posible moves to evry click
 
-        if (event.target.tagName === "TD" || "IMG" && event.target.src.toString().split('/').find((e)=>e===turn)) {
+        if (event.target.tagName === "TD" || "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
             /*
             here we going to save the current click and privus click
             if privus click is img and current click is in posible moves so move the piece
@@ -288,10 +214,8 @@ window.addEventListener('load', (e) => {
                 } else if (turn === "black") {
                     turn = "white";
                 }
-                
-                visualTurn.textContent = "This is " + turn +" turn now";
-
-            } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/').find((e)=>e===turn)) {
+                visualTurn.textContent = "This is " + turn + " turn now";
+            } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
             }
 
