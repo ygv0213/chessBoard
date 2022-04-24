@@ -269,7 +269,7 @@ window.addEventListener('load', (e) => {
 
         posibleMoves(event, table, moves, turn);//shows the posible moves to evry click
 
-        if (event.target.tagName === "TD" || "IMG" && event.target.src.toString().split('/')[5] === turn) {
+        if (event.target.tagName === "TD" || "IMG" && event.target.src.toString().split('/').find((e)=>e===turn)) {
             /*
             here we going to save the current click and privus click
             if privus click is img and current click is in posible moves so move the piece
@@ -291,7 +291,7 @@ window.addEventListener('load', (e) => {
                 
                 visualTurn.textContent = "This is " + turn +" turn now";
 
-            } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/')[5] !== turn) {
+            } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/').find((e)=>e===turn)) {
                 clickes = [];
             }
 
