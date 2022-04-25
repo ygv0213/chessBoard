@@ -28,14 +28,36 @@ function posibleMoves(event, table, moves, turn) {
         let cell = event.target.parentElement.cellIndex;
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
             if (turn === "white") {
-                if (!table.rows[row + 1].cells[cell].hasChildNodes()) {
-                    table.rows[row + 1].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row + 1].cells[cell]);
+                if (row === 1) {
+                    if (!table.rows[row + 1].cells[cell].hasChildNodes() && !table.rows[row + 2].cells[cell].hasChildNodes()) {
+                        table.rows[row + 2].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row + 2].cells[cell]);
+                    }
+                    if (!table.rows[row + 1].cells[cell].hasChildNodes()) {
+                        table.rows[row + 1].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row + 1].cells[cell]);
+                    }
+                } else {
+                    if (!table.rows[row + 1].cells[cell].hasChildNodes()) {
+                        table.rows[row + 1].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row + 1].cells[cell]);
+                    }
                 }
             } else {
-                if (!table.rows[row - 1].cells[cell].hasChildNodes()) {
-                    table.rows[row - 1].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row - 1].cells[cell]);
+                if (row === 6) {
+                    if (!table.rows[row - 1].cells[cell].hasChildNodes() && !table.rows[row - 2].cells[cell].hasChildNodes()) {
+                        table.rows[row - 2].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - 2].cells[cell]);
+                    }
+                    if (!table.rows[row - 1].cells[cell].hasChildNodes()) {
+                        table.rows[row - 1].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - 1].cells[cell]);
+                    }
+                } else {
+                    if (!table.rows[row - 1].cells[cell].hasChildNodes()) {
+                        table.rows[row - 1].cells[cell].classList.add("moves");
+                        moves[1].push(table.rows[row - 1].cells[cell]);
+                    }
                 }
             }
         }
