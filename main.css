@@ -31,7 +31,7 @@ body{
     height: 40px;
 }
 #visualTurn{
-    width: calc(50px * 8 );
+    width: calc(50px * 8 + 17px);
     height: 30px;
     font-size: 24px;
     font-weight: 900;
@@ -43,7 +43,7 @@ body{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    color: rgb(255, 255, 0);
+    color: rgb(246, 255, 0);
     margin-block: auto;
 }
 

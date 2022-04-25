@@ -21,18 +21,22 @@ class piece {
 }
 
 function posibleMoves(event, table, moves, turn) {
-    //this function tack the index of the clicked solider and definde what is the option to move on the board
+    //this function take the index of the clicked solider and definde what is the option to move on the board
     //moves => array to store all posible moves to use later
     if (event.target.tagName === "IMG") {
         let row = event.target.parentElement.parentElement.rowIndex;
         let cell = event.target.parentElement.cellIndex;
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
             if (turn === "white") {
-                table.rows[row + 1].cells[cell].classList.add("moves");
-                moves[1].push(table.rows[row + 1].cells[cell]);
+                if(!table.rows[row + 1].cells[cell].hasChildNodes()){
+                    table.rows[row + 1].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row + 1].cells[cell]);
+                }
             } else {
-                table.rows[row - 1].cells[cell].classList.add("moves");
-                moves[1].push(table.rows[row - 1].cells[cell]);
+                if(!table.rows[row - 1].cells[cell].hasChildNodes()){
+                    table.rows[row - 1].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row - 1].cells[cell]);
+                }
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/king.ico") {
@@ -65,69 +69,56 @@ function posibleMoves(event, table, moves, turn) {
             });
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/bishop.ico") {
-            for (let j = -7; j < 8; j++) {
-                if (row + j < 8 && row + j > -1 && cell + j < 8 && cell + j > -1) {
-                    if (!table.rows[row + j].cells[cell + j].hasChildNodes()) {
-                        table.rows[row + j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell + j]);
+            let options = [];
+            for (let j = 0; j < 8; j++) {
+                options = [[j, j], [-j, -j],[j, -j], [-j, j]];
+                options.forEach(element => {
+                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
+                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
+                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
+                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+                        }
                     }
-                } 
-            }
-            for (let j = -7; j < 8; j++) {
-                if (row + j < 8 && row + j > -1 && cell - j < 8 && cell - j > -1) {
-                    if (!table.rows[row + j].cells[cell -j].hasChildNodes()) {
-                        table.rows[row + j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell - j]);
-                    }
-                } 
+                });
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/wall.ico") {
-            for (let j = -7; j < 8; j++) {
-                if (cell + j < 8 && cell + j > -1 && (j !== 0)) {
-                    if(!table.rows[row].cells[cell + j].hasChildNodes()){
-                        table.rows[row].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row].cells[cell + j]);
+            let options = [];
+            for (let j = 0; j < 8; j++) {
+                options = [[0, j], [0, -j],[j, 0], [-j, 0]];
+                options.forEach(element => {
+                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
+                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
+                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
+                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+                        }
                     }
-                }
-                if (row - j > -1 && row - j < 8 && (j !== 0)) {
-                    if (!table.rows[row - j].cells[cell].hasChildNodes()){
-                        table.rows[row - j].cells[cell].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell]);
-                    }
-                }
+                });
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/quinn.ico") {
-            for (let j = -7; j < 8; j++) {
-                if (row + j < 8 && row + j > -1 && cell + j < 8 && cell + j > -1) {
-                    if (!table.rows[row + j].cells[cell + j].hasChildNodes()) {
-                        table.rows[row + j].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell + j]);
+            let options = [];
+            for (let j = 0; j < 8; j++) {
+                options = [[j, j], [-j, -j],[j, -j], [-j, j]];
+                options.forEach(element => {
+                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
+                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
+                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
+                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+                        }
                     }
-                } 
+                });
             }
-            for (let j = -7; j < 8; j++) {
-                if (row + j < 8 && row + j > -1 && cell - j < 8 && cell - j > -1) {
-                    if (!table.rows[row + j].cells[cell -j].hasChildNodes()) {
-                        table.rows[row + j].cells[cell - j].classList.add("moves");
-                        moves[1].push(table.rows[row + j].cells[cell - j]);
+            for (let j = 0; j < 8; j++) {
+                options = [[0, j], [0, -j],[j, 0], [-j, 0]];
+                options.forEach(element => {
+                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
+                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
+                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
+                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+                        }
                     }
-                } 
-            }
-            for (let j = -7; j < 8; j++) {
-                if (cell + j < 8 && cell + j > -1 && (j !== 0)) {
-                    if (!table.rows[row].cells[cell + j].hasChildNodes()){
-                        table.rows[row].cells[cell + j].classList.add("moves");
-                        moves[1].push(table.rows[row].cells[cell + j]);
-                    }
-                }
-                if (row - j > -1 && row - j < 8 && (j !== 0)) {
-                    if (!table.rows[row - j].cells[cell].hasChildNodes()){
-                        table.rows[row - j].cells[cell].classList.add("moves");
-                        moves[1].push(table.rows[row - j].cells[cell]);
-                    }
-                }
+                });
             }
         }
     }
@@ -177,7 +168,6 @@ window.addEventListener('load', (e) => {
 
     divtable.id = "divtable";
     backcolor.id = "backcolor";
-    console.log(turn + "kghkjgh")
 
     divtable.appendChild(visualTurn);
     body.appendChild(divtable);
