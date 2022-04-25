@@ -28,12 +28,12 @@ function posibleMoves(event, table, moves, turn) {
         let cell = event.target.parentElement.cellIndex;
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
             if (turn === "white") {
-                if(!table.rows[row + 1].cells[cell].hasChildNodes()){
+                if (!table.rows[row + 1].cells[cell].hasChildNodes()) {
                     table.rows[row + 1].cells[cell].classList.add("moves");
                     moves[1].push(table.rows[row + 1].cells[cell]);
                 }
             } else {
-                if(!table.rows[row - 1].cells[cell].hasChildNodes()){
+                if (!table.rows[row - 1].cells[cell].hasChildNodes()) {
                     table.rows[row - 1].cells[cell].classList.add("moves");
                     moves[1].push(table.rows[row - 1].cells[cell]);
                 }
@@ -59,8 +59,8 @@ function posibleMoves(event, table, moves, turn) {
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/hores.ico") {
             //here i am
             let options = [[2, 1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2], [2, -1]];
-            options.forEach((option)=>{
-                if (row + option[0] < 8 && row + option[0] > -1 && cell + option[1] < 8 && cell + option[1] > -1){
+            options.forEach((option) => {
+                if (row + option[0] < 8 && row + option[0] > -1 && cell + option[1] < 8 && cell + option[1] > -1) {
                     if (!table.rows[row + option[0]].cells[cell + option[1]].hasChildNodes()) {
                         table.rows[row + option[0]].cells[cell + option[1]].classList.add("moves");
                         moves[1].push(table.rows[row + option[0]].cells[cell + option[1]]);
@@ -69,56 +69,72 @@ function posibleMoves(event, table, moves, turn) {
             });
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/bishop.ico") {
-            let options = [];
-            for (let j = 0; j < 8; j++) {
-                options = [[j, j], [-j, -j],[j, -j], [-j, j]];
-                options.forEach(element => {
-                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
-                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
-                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
-                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+            let options = [[1, 1], [-1, -1], [1, -1], [-1, 1]];
+            let tmp = 8;
+
+            for (let i = 0; i < options.length; i++) {
+                for (let j = 0; j < tmp; j++) {
+                    tmp = 8;
+                    if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
+                        if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            tmp = j;
+                        } else {
+                            table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
+                            moves[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
                         }
                     }
-                });
+                }
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/wall.ico") {
-            let options = [];
-            for (let j = 0; j < 8; j++) {
-                options = [[0, j], [0, -j],[j, 0], [-j, 0]];
-                options.forEach(element => {
-                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
-                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
-                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
-                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+            let options = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+            let tmp = 8;
+
+            for (let i = 0; i < options.length; i++) {
+                for (let j = 0; j < tmp; j++) {
+                    tmp = 8;
+                    if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
+                        if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            tmp = j;
+                        } else {
+                            table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
+                            moves[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
                         }
                     }
-                });
+                }
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/quinn.ico") {
-            let options = [];
-            for (let j = 0; j < 8; j++) {
-                options = [[j, j], [-j, -j],[j, -j], [-j, j]];
-                options.forEach(element => {
-                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
-                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
-                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
-                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+            let options = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+            let tmp = 8;
+
+            for (let i = 0; i < options.length; i++) {
+                for (let j = 0; j < tmp; j++) {
+                    tmp = 8;
+                    if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
+                        if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            tmp = j;
+                        } else {
+                            table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
+                            moves[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
                         }
                     }
-                });
+                }
             }
-            for (let j = 0; j < 8; j++) {
-                options = [[0, j], [0, -j],[j, 0], [-j, 0]];
-                options.forEach(element => {
-                    if (cell + element[1] < 8 && cell + element[1] > -1 && row + element[0] < 8 && row + element[0] > -1 && (j !== 0)) {
-                        if(!table.rows[row + element[0]].cells[cell + element[1]].hasChildNodes()){
-                            table.rows[row + element[0]].cells[cell + element[1]].classList.add("moves");
-                            moves[1].push(table.rows[row + element[0]].cells[cell + element[1]]);
+            options = [[1, 1], [-1, -1], [1, -1], [-1, 1]];
+
+            for (let i = 0; i < options.length; i++) {
+                for (let j = 0; j < tmp; j++) {
+                    tmp = 8;
+                    if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
+                        if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            tmp = j;
+                        } else {
+                            table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
+                            moves[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
                         }
                     }
-                });
+                }
             }
         }
     }
@@ -145,12 +161,12 @@ window.addEventListener('load', (e) => {
     let arrCount = []; //help to handle selected items on the board
     let turn = "";//this is global varible to get the color from user
 
-    choseColor.addEventListener('click', (event)=>{
+    choseColor.addEventListener('click', (event) => {
         //this function chenges the turn varble to selected color
-        if(event.target.id === "sendBtn"){
-            if(color[0].checked === true){
+        if (event.target.id === "sendBtn") {
+            if (color[0].checked === true) {
                 turn = color[0].value;
-            }else{
+            } else {
                 turn = color[1].value;
             }
             choseColor.style.display = "none";
