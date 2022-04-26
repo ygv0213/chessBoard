@@ -20,7 +20,7 @@ class piece {
     }
 }
 
-function posibleMoves(event, table, moves, turn) {
+function posibleMoves(event, table, moves, eats, turn) {
     //this function take the index of the clicked solider and definde what is the option to move on the board
     //moves => array to store all posible moves to use later
     if (event.target.tagName === "IMG") {
@@ -37,10 +37,37 @@ function posibleMoves(event, table, moves, turn) {
                         table.rows[row + 1].cells[cell].classList.add("moves");
                         moves[1].push(table.rows[row + 1].cells[cell]);
                     }
+                    //this here added the posible eats to the array
+                    if (row + 1 < 8 && cell + 1 < 8) {
+                        if (table.rows[row + 1].cells[cell + 1].hasChildNodes()) {
+                            table.rows[row + 1].cells[cell + 1].classList.add("eats");
+                            eats[1].push(table.rows[row + 1].cells[cell + 1]);
+                        }
+                    }
+                    if (row + 1 < 8 && cell - 1 > -1) {
+                        if (table.rows[row + 1].cells[cell - 1].hasChildNodes()) {
+                            table.rows[row + 1].cells[cell - 1].classList.add("eats");
+                            eats[1].push(table.rows[row + 1].cells[cell - 1]);
+                        }
+                    }
+
                 } else {
                     if (!table.rows[row + 1].cells[cell].hasChildNodes()) {
                         table.rows[row + 1].cells[cell].classList.add("moves");
                         moves[1].push(table.rows[row + 1].cells[cell]);
+                    }
+                    //this here added the posible eats to the array
+                    if (row + 1 < 8 && cell + 1 < 8) {
+                        if (table.rows[row + 1].cells[cell + 1].hasChildNodes()) {
+                            table.rows[row + 1].cells[cell + 1].classList.add("eats");
+                            eats[1].push(table.rows[row + 1].cells[cell + 1]);
+                        }
+                    }
+                    if (row + 1 < 8 && cell - 1 > -1) {
+                        if (table.rows[row + 1].cells[cell - 1].hasChildNodes()) {
+                            table.rows[row + 1].cells[cell - 1].classList.add("eats");
+                            eats[1].push(table.rows[row + 1].cells[cell - 1]);
+                        }
                     }
                 }
             } else {
@@ -53,10 +80,36 @@ function posibleMoves(event, table, moves, turn) {
                         table.rows[row - 1].cells[cell].classList.add("moves");
                         moves[1].push(table.rows[row - 1].cells[cell]);
                     }
+                    //this here added the posible eats to the array
+                    if (cell - 1 > -1 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell - 1].hasChildNodes()) {
+                            table.rows[row - 1].cells[cell - 1].classList.add("eats");
+                            eats[1].push(table.rows[row - 1].cells[cell - 1]);
+                        }
+                    }
+                    if (cell + 1 < 8 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell + 1].hasChildNodes()) {
+                            table.rows[row - 1].cells[cell + 1].classList.add("eats");
+                            eats[1].push(table.rows[row - 1].cells[cell + 1]);
+                        }
+                    }
                 } else {
                     if (!table.rows[row - 1].cells[cell].hasChildNodes()) {
                         table.rows[row - 1].cells[cell].classList.add("moves");
                         moves[1].push(table.rows[row - 1].cells[cell]);
+                    }
+                    //this here added the posible eats to the array
+                    if (cell - 1 > -1 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell - 1].hasChildNodes()) {
+                            table.rows[row - 1].cells[cell - 1].classList.add("eats");
+                            eats[1].push(table.rows[row - 1].cells[cell - 1]);
+                        }
+                    }
+                    if (cell + 1 < 8 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell + 1].hasChildNodes()) {
+                            table.rows[row - 1].cells[cell + 1].classList.add("eats");
+                            eats[1].push(table.rows[row - 1].cells[cell + 1]);
+                        }
                     }
                 }
             }
@@ -71,6 +124,12 @@ function posibleMoves(event, table, moves, turn) {
                             if (!table.rows[row + i].cells[cell + j].hasChildNodes()) {
                                 table.rows[row + i].cells[cell + j].classList.add("moves");
                                 moves[1].push(table.rows[row + i].cells[cell + j]);
+                            } else {
+                                let tmp = table.rows[row + i].cells[cell + j].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                                if (tmp !== turn) {
+                                    table.rows[row + i].cells[cell + j].classList.add("eats");
+                                    eats[1].push(table.rows[row + i].cells[cell + j]);
+                                }
                             }
                         }
                     }
@@ -86,6 +145,12 @@ function posibleMoves(event, table, moves, turn) {
                     if (!table.rows[row + option[0]].cells[cell + option[1]].hasChildNodes()) {
                         table.rows[row + option[0]].cells[cell + option[1]].classList.add("moves");
                         moves[1].push(table.rows[row + option[0]].cells[cell + option[1]]);
+                    } else {
+                        let tmp = table.rows[row + option[0]].cells[cell + option[1]].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                        if (tmp !== turn) {
+                            table.rows[row + option[0]].cells[cell + option[1]].classList.add("eats");
+                            eats[1].push(table.rows[row + option[0]].cells[cell + option[1]]);
+                        }
                     }
                 }
             });
@@ -99,6 +164,11 @@ function posibleMoves(event, table, moves, turn) {
                     tmp = 8;
                     if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
                         if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            let isMy = table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                            if (isMy !== turn) {
+                                table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("eats");
+                                eats[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
+                            }
                             tmp = j;
                         } else {
                             table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
@@ -117,6 +187,11 @@ function posibleMoves(event, table, moves, turn) {
                     tmp = 8;
                     if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
                         if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            let isMy = table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                            if (isMy !== turn) {
+                                table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("eats");
+                                eats[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
+                            }
                             tmp = j;
                         } else {
                             table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
@@ -135,6 +210,11 @@ function posibleMoves(event, table, moves, turn) {
                     tmp = 8;
                     if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
                         if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            let isMy = table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                            if (isMy !== turn) {
+                                table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("eats");
+                                eats[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
+                            }
                             tmp = j;
                         } else {
                             table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
@@ -150,6 +230,11 @@ function posibleMoves(event, table, moves, turn) {
                     tmp = 8;
                     if (cell + (j * options[i][1]) < 8 && cell + (j * options[i][1]) > -1 && row + (j * options[i][0]) < 8 && row + (j * options[i][0]) > -1 && j !== 0) {
                         if (table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].hasChildNodes()) {
+                            let isMy = table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+                            if (isMy !== turn) {
+                                table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("eats");
+                                eats[1].push(table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])]);
+                            }
                             tmp = j;
                         } else {
                             table.rows[row + (j * options[i][0])].cells[cell + (j * options[i][1])].classList.add("moves");
@@ -181,10 +266,10 @@ window.addEventListener('load', (e) => {
     let td = document.createElement('td');
 
     let arrCount = []; //help to handle selected items on the board
-    let turn = "";//this is global varible to get the color from user
+    let turn = ""; //this varible get the color from user
 
     choseColor.addEventListener('click', (event) => {
-        //this function chenges the turn varble to selected color
+        //this function chenges the turn varible to the selected color
         if (event.target.id === "sendBtn") {
             if (color[0].checked === true) {
                 turn = color[0].value;
@@ -199,6 +284,7 @@ window.addEventListener('load', (e) => {
     });
 
     let moves = [[], []]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
+    let eats = [[], []]; //this save the options to eat for evry click on solider
     let clickes = [];
 
     const WHITE_PLAYER = "white";
@@ -221,22 +307,27 @@ window.addEventListener('load', (e) => {
             }
             moves[1] = [];
         }
+        if (eats[1].length > 0) {
+            eats[0] = eats[1];
+            for (let i = 0; i < eats[1].length; i++) {
+                eats[1][i].classList.remove("eats");
+            }
+            eats[1] = [];
+        }
 
         if (event.target.tagName === "TD" || "IMG") {
             //this help me to track after the clickes save the element we clicked on and add him to selected class
             arrCount.push(event.target);
             if (arrCount.length === 1) {
                 arrCount[0].classList.add("selected");
-                //function here
             } else if (arrCount.length === 2) {
                 arrCount[1].classList.add("selected");
                 arrCount[0].classList.remove("selected");
-                //function here
                 arrCount.shift();
             }
         }
 
-        posibleMoves(event, table, moves, turn);//shows the posible moves to evry click
+        posibleMoves(event, table, moves, eats, turn);//shows the posible moves to evry click
 
         if (event.target.tagName === "TD" || "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
             /*
@@ -250,6 +341,7 @@ window.addEventListener('load', (e) => {
                 clickes.push(event.target);
             }
             if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1) {
+                //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
                 clickes = [];
                 if (turn === "white") {
