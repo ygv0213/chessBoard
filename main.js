@@ -17,7 +17,6 @@ class piece {
 
     move(piece) {
         piece = this;
-        
     }
 }
 
@@ -28,40 +27,70 @@ function posibleMoves(event, table, moves, eats, turn) {
         let row = event.target.parentElement.parentElement.rowIndex;
         let cell = event.target.parentElement.cellIndex;
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
-            let tmp = table.rows[row].cells[cell].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === turn);
+            let reverseTurn = "";
+            if (turn === "white") {
+                reverseTurn = "black";
+            } else if (turn === "black") {
+                reverseTurn = "white";
+            }
+
+            let tmp = table.rows[row].cells[cell].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === reverseTurn);
             let options = [];
-            if(turn === "white" && row === 1 && !table.rows[row + 1].cells[cell].hasChildNodes()){
-                options = [1,2];
-            }else if(turn === "white" && row > 1){
+            if (turn === "white" && row === 1 && !table.rows[row + 1].cells[cell].hasChildNodes()) {
+                options = [1, 2];
+            } else if (turn === "white" && row > 1) {
                 options = [1];
-            }else if(turn === "black" && row === 6 && !table.rows[row - 1].cells[cell].hasChildNodes()){
-                options = [-1,-2];
-            }else if(turn === "black" && row < 6){
+            } else if (turn === "black" && row === 6 && !table.rows[row - 1].cells[cell].hasChildNodes()) {
+                options = [-1, -2];
+            } else if (turn === "black" && row < 6) {
                 options = [-1];
             }
-            
-            options.forEach((option)=>{
-                if (!table.rows[row + option].cells[cell].hasChildNodes()) {
-                    table.rows[row + option].cells[cell].classList.add("moves");
-                    moves[1].push(table.rows[row + option].cells[cell]);
-                }
 
-                if(option === 1 || option === -1){
-                    if(cell + 1 < 8){
-                        if(table.rows[row + option].cells[cell + 1].childNodes[0] !== tmp && table.rows[row + option].cells[cell + 1].childNodes[0] !== undefined) {
-                            table.rows[row + option].cells[cell + 1].classList.add("eats");
-                            eats[1].push(table.rows[row + option].cells[cell+1]);
+            for (let i = 0; i < options.length; i++) {
+                if (!table.rows[row + options[i]].cells[cell].hasChildNodes()) {
+                    table.rows[row + options[i]].cells[cell].classList.add("moves");
+                    moves[1].push(table.rows[row + options[i]].cells[cell]);
+                }
+                if (options[i] === 1) {
+                    if (cell + 1 < 8 && row + 1 < 8) {
+                        if (table.rows[row + 1].cells[cell + 1].hasChildNodes()) {
+                            tmp = table.rows[row + 1].cells[cell + 1].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === reverseTurn);
+                            if (tmp === reverseTurn) {
+                                table.rows[row + 1].cells[cell + 1].classList.add("eats");
+                                eats[1].push(table.rows[row + 1].cells[cell + 1]);
+                            }
                         }
                     }
-                    if(cell - 1 > -1){
-                        if(table.rows[row + option].cells[cell - 1].childNodes[0] !== tmp && table.rows[row + option].cells[cell - 1].childNodes[0] !== undefined) {
-                            table.rows[row + option].cells[cell - 1].classList.add("eats");
-                            eats[1].push(table.rows[row + option].cells[cell-1]);
+                    if (cell - 1 > -1 && row + 1 < 8) {
+                        if (table.rows[row + 1].cells[cell - 1].hasChildNodes()) {
+                            tmp = table.rows[row + 1].cells[cell - 1].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === reverseTurn);
+                            if (tmp === reverseTurn) {
+                                table.rows[row + 1].cells[cell - 1].classList.add("eats");
+                                eats[1].push(table.rows[row + 1].cells[cell - 1]);
+                            }
+                        }
+                    }
+                } else if (options[i] === -1) {
+                    if (cell + 1 < 8 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell + 1].hasChildNodes()) {
+                            tmp = table.rows[row - 1].cells[cell + 1].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === reverseTurn);
+                            if (tmp === reverseTurn) {
+                                table.rows[row - 1].cells[cell + 1].classList.add("eats");
+                                eats[1].push(table.rows[row - 1].cells[cell + 1]);
+                            }
+                        }
+                    }
+                    if (cell - 1 > -1 && row - 1 > -1) {
+                        if (table.rows[row - 1].cells[cell - 1].hasChildNodes()) {
+                            tmp = table.rows[row - 1].cells[cell - 1].getElementsByTagName("img")[0].src.toString().split('/').find((e) => e === reverseTurn);
+                            if (tmp === reverseTurn) {
+                                table.rows[row - 1].cells[cell - 1].classList.add("eats");
+                                eats[1].push(table.rows[row - 1].cells[cell - 1]);
+                            }
                         }
                     }
                 }
-                
-            });
+            }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/king.ico") {
             for (let i = -1; i < 2; i++) {
@@ -256,6 +285,7 @@ window.addEventListener('load', (e) => {
             }
             moves[1] = [];
         }
+
         if (eats[1].length > 0) {
             eats[0] = eats[1];
             for (let i = 0; i < eats[1].length; i++) {
@@ -274,6 +304,9 @@ window.addEventListener('load', (e) => {
                 arrCount[0].classList.remove("selected");
                 arrCount.shift();
             }
+            if (event.target.tagName === "IMG") {
+                moves = [[], []];
+            }
         }
 
         posibleMoves(event, table, moves, eats, turn);//shows the posible moves to evry click
@@ -286,10 +319,10 @@ window.addEventListener('load', (e) => {
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 clickes.push(event.target);
-            } else if (clickes.length === 1 && (event.target.tagName === "TD" || event.target.src.toString().split('/').find((e) => e !== turn))){
+            } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
             }
-            if (clickes.length === 2 && (moves[0].indexOf(clickes[1]) !== -1) || eats[0].indexOf(clickes[1]) !== -1) {
+            if (clickes.length === 2 && (moves[0].indexOf(clickes[1]) !== -1 || eats[1].indexOf(event.target) !== -1)) {
                 //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
                 clickes = [];
@@ -299,11 +332,11 @@ window.addEventListener('load', (e) => {
                     turn = "white";
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
-            } else if (clickes.length === 2 && moves[0].indexOf(clickes[1]) === -1 && event.target.src.toString().split('/').find((e) => e === turn)) {
+            } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
             }
-            //i am here
         }
+
     });
 
     for (let i = 0; i < 8; i++) {
