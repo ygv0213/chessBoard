@@ -12,9 +12,26 @@ body{
     align-items: center;
     width: fit-content;
     height: fit-content;
-    background-color: rgb(175, 194, 251);
+    background-color: rgb(255, 0, 111);
     padding-block: 25px;
-    border: 2px solid black;
+    border: 3px solid rgb(21, 1, 99);
+    font-size: 24px;
+    font-weight: 900;
+    font-family: monospace;
+    padding-inline: 25px;
+    color: aliceblue;
+    border-radius: 15px;
+}
+
+#sendBtn{
+    font-size: 24px;
+    font-weight: 900;
+    font-family: monospace;
+    width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(122, 255, 129);
+    color: rgb(45, 116, 168);
 }
 
 .choseColor{
@@ -34,17 +51,18 @@ body{
 #visualTurn{
     width: calc(50px * 8 + 17px);
     height: 30px;
-    font-size: 24px;
-    font-weight: 900;
-    background-color: rgb(255, 0, 0);
-    margin-block:0px;
-    outline: 2px solid black;
-    padding-block: 2px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: 1000;
+    background-color: rgb(242, 70, 70);
+    border: 3px solid black;
+    border-radius: 15px;
+    padding-block: 3px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    color: rgb(246, 255, 0);
+    color: rgb(58, 226, 212);
     margin-block: auto;
 }
 
@@ -96,11 +114,11 @@ img{
 }
 
 .selected{
-    background-color: rgb(179, 255, 246)!important;
+    background-color: rgb(252, 245, 110)!important;
 }
 .moves{
-    background-color: rgb(47, 255, 0)!important;
+    background-color: rgb(136, 255, 109)!important;
 }
 .eats{
-    background-color: rgb(253, 96, 96)!important;
+    background-color: rgb(240, 135, 135)!important;
 }

@@ -96,7 +96,7 @@ window.addEventListener('load', (e) => {
                 if (turn === "white") {
                     turn = "black";
                 } else if (turn === "black") {
-                    turn = "white";
+                    turn = "white";  
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
