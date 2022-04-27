@@ -88,6 +88,19 @@ window.addEventListener('load', (e) => {
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
+            }else if(event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e !== turn) && clickes.length === 1){
+                let index = eats[0].indexOf(event.target.parentElement);
+                if(index !== -1){
+                    eats[0][index].appendChild(clickes[0]);
+                    eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
+                }
+                index = eats[1].indexOf(event.target.parentElement);
+                if(index !== -1){
+                    eats[0][index].appendChild(clickes[0]);
+                    eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
+                }
+                eats = [[],[]];
+                clickes = [];
             }
             if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1 ) {
                 //this is here changes the turn between players
