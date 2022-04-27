@@ -12,6 +12,12 @@ window.addEventListener('load', (e) => {
 
     let arrCount = []; //help to handle selected items on the board
     let turn = ""; //this varible get the color from user
+    let reverseTurn = undefined;
+    if (turn === "white") {
+        reverseTurn = "black";
+    } else {
+        reverseTurn = "white";
+    }
 
     choseColor.addEventListener('click', (event) => {
         //this function chenges the turn varible to the selected color
@@ -28,10 +34,13 @@ window.addEventListener('load', (e) => {
         }
     });
 
+    showWinning.addEventListener('click', ()=>{
+        window.location.reload();
+    });
+
     let moves = [[], []]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
     let eats = [[], []]; //this save the options to eat for evry click on solider
     let clickes = [];
-
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
 
@@ -88,7 +97,7 @@ window.addEventListener('load', (e) => {
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
-            }else if(event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e !== turn) && clickes.length === 1){
+            }else if(event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1){
                 let index = eats[0].indexOf(event.target.parentElement);
                 if(index !== -1){
                     eats[0][index].appendChild(clickes[0]);
@@ -101,14 +110,30 @@ window.addEventListener('load', (e) => {
                 }
                 eats = [[],[]];
                 clickes = [];
+                if(event.target.src.toString().split('/').find((e) => e === "king.ico")){
+                    //here i breake the game and show who is winning if king was eating
+                    divtable.style.display = "none";
+                    let showWinning = document.getElementById("showWinning");
+                    let p = document.createElement("p");
+                    let input = document.createElement("input");
+                    input.type = "button";
+                    input.id = "playAgain";
+                    input.value = "Press to play again";
+                    p.innerText = turn.toUpperCase() + " YOU ARE THE WINNER";
+                    showWinning.style.display = "flex";
+                    showWinning.appendChild(p);
+                    showWinning.appendChild(input);
+                }
             }
-            if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1 ) {
+            if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1) {
                 //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
                 clickes = [];
                 if (turn === "white") {
+                    reverseTurn = turn;
                     turn = "black";
                 } else if (turn === "black") {
+                    reverseTurn = turn;
                     turn = "white";  
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
@@ -116,7 +141,6 @@ window.addEventListener('load', (e) => {
                 clickes = [];
             }
         }
-
     });
 
     for (let i = 0; i < 8; i++) {
