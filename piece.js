@@ -21,12 +21,14 @@ class piece {
 }
 
 function posibleMoves(event, table, moves, eats, turn) {
-    //this function take the index of the clicked solider and definde what is the option to move on the board
-    //moves => array to store all posible moves to use later
+    /*  :: this function take the index of the clicked solider and definde what is the options to move on the board
+        :: moves => array to store all posible moves to use later 
+        :: to any type of solider i did anather condition to calculate the posible moves and make the changes on the board*/
     if (event.target.tagName === "IMG") {
         let row = event.target.parentElement.parentElement.rowIndex;
         let cell = event.target.parentElement.cellIndex;
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
+            //here i save the reverse turn
             let reverseTurn = "";
             if (turn === "white") {
                 reverseTurn = "black";
@@ -116,7 +118,6 @@ function posibleMoves(event, table, moves, eats, turn) {
             }
         }
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/hores.ico") {
-            //here i am
             let options = [[2, 1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2], [2, -1]];
             options.forEach((option) => {
                 if (row + option[0] < 8 && row + option[0] > -1 && cell + option[1] < 8 && cell + option[1] > -1) {
@@ -231,3 +232,21 @@ function newPiece(i, j, type, color, td) {
     tmp.visual(td);
 }
 
+function clearMovesAndEatsArrays(moves, eats){
+    //this function clear bote arrays
+    if (moves[1].length > 0) {
+        moves[0] = moves[1];
+        for (let i = 0; i < moves[1].length; i++) {
+            moves[1][i].classList.remove("moves");
+        }
+        moves[1] = [];
+    }
+
+    if (eats[1].length > 0) {
+        eats[0] = eats[1];
+        for (let i = 0; i < eats[1].length; i++) {
+            eats[1][i].classList.remove("eats");
+        }
+        eats[1] = [];
+    }
+}

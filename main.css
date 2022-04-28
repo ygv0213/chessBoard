@@ -3,7 +3,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 900px;
+    height: 550px;
 }
 
 #choseColor1 {
@@ -13,7 +13,7 @@ body {
     align-items: center;
     width: fit-content;
     height: fit-content;
-    background-color: rgb(255, 0, 111);
+    background-color: rgb(255, 59, 144);
     padding-block: 25px;
     border: 3px solid rgb(21, 1, 99);
     font-size: 24px;
@@ -74,24 +74,39 @@ body {
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
-    width: calc(50px * 8 + 150px);
-    height: calc(50px * 8 + 100px);
+    width: calc(50px * 8 + 200px);
+    height: calc(50px * 8 + 130px);
     background-color: rgb(40, 219, 219);
     border: 2.5px solid black;
 }
 
 #backcolor {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    outline: 2px solid rgb(0, 0, 0);
+    flex-direction: row;
     margin-bottom: 20px;
-    width: calc(52px * 8);
-    height: calc(52px * 8);
-    background-color: rgb(255, 255, 255);
+    width: 100%;
+    background-color: rgb(40, 219, 219);
 }
 
-table {
+.divVisualEats{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: calc(50px * 8);
+    margin-inline: auto;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.divVisualEats::-webkit-scrollbar{
+    display: none;
+}
+.table {
     border-collapse: collapse;
 }
 

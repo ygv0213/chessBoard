@@ -2,6 +2,10 @@ window.addEventListener('load', (e) => {
     let divtable = document.createElement('div');
     let backcolor = document.createElement('div');
     let visualTurn = document.createElement('p');
+
+    let divWhiteEats = document.createElement("div");
+    let divBlackEats = document.createElement("div");
+
     let body = document.getElementsByTagName('body')[0];
     let table = document.createElement('table');
     let choseColor = document.getElementById("choseColor1");
@@ -11,17 +15,17 @@ window.addEventListener('load', (e) => {
     let td = document.createElement('td');
 
     let arrCount = []; //help to handle selected items on the board
-    let turn = ""; //this varible get the color from user
+    let turn = ""; //this varible get the color from user and save it as turn
     let reverseTurn = undefined;
+    //here i save the reverse player from the current turn to be used later
     if (turn === "white") {
-        //here i save the reverse player from the current turn to be used later
         reverseTurn = "black";
     } else {
         reverseTurn = "white";
     }
 
     choseColor.addEventListener('click', (event) => {
-        //this function chenges the turn varible to the selected color
+        //this function chenges the turn varible when the player click on the start game button
         if (event.target.id === "sendBtn") {
             if (color[0].checked === true) {
                 turn = color[0].value;
@@ -36,41 +40,53 @@ window.addEventListener('load', (e) => {
     });
 
     showWinning.addEventListener('click', () => {
-        //this reload the web-page if you clicked on play again butoon
+        //this reload the web-page if you clicked on play again button
         window.location.reload();
     });
 
-    let moves = [[], []]; // the array help me to track where is the posible moves in moves[1] and save in moves[0] the privuse posible moves
+    let moves = [[], []]; // the array help me to track where is the ::posible moves in moves[1] and privuse posible moves in moves[0] 
     let eats = [[], []]; //this save the options to eat for evry click on solider
-    let clickes = [];
+    let clickes = []; //this here save my clickes to know where i was clicked the last time
+
+    let whiteEats = [];
+    let blackEats = [];
+
+    let tmp = false;
+
     const WHITE_PLAYER = "white";
     const BLACK_PLAYER = "black";
 
     divtable.id = "divtable";
     backcolor.id = "backcolor";
 
-    divtable.appendChild(visualTurn);
-    body.appendChild(divtable);
-    divtable.appendChild(backcolor);
+    divWhiteEats.classList.add("divVisualEats");
+    divBlackEats.classList.add("divVisualEats");
 
+    for(let i = 0;i<whiteEats.length;i++){
+        //this shows what player was eaten
+        let visualWhiteEats = document.createElement("img");
+        visualWhiteEats.alt = "X";
+        visualWhiteEats.src = whiteEats[i];
+        divWhiteEats.appendChild(visualWhiteEats);
+    }
+    
+    for(let i = 0;i<blackEats.length;i++){
+        //this shows what player was eaten
+        let visualBlackEats = document.createElement("img");
+        visualBlackEats.alt = "X";
+        visualBlackEats.src = blackEats[i];
+        divBlackEats.appendChild(visualBlackEats);
+    }
+
+    body.appendChild(divtable);
+    divtable.appendChild(visualTurn);
+    divtable.appendChild(backcolor);
+    
     table.addEventListener('click', (event) => {
         //this here help to track who need to stay in class moves and who is not 
         //when you click on anather player the moves update to the new selected player
-        if (moves[1].length > 0) {
-            moves[0] = moves[1];
-            for (let i = 0; i < moves[1].length; i++) {
-                moves[1][i].classList.remove("moves");
-            }
-            moves[1] = [];
-        }
 
-        if (eats[1].length > 0) {
-            eats[0] = eats[1];
-            for (let i = 0; i < eats[1].length; i++) {
-                eats[1][i].classList.remove("eats");
-            }
-            eats[1] = [];
-        }
+        clearMovesAndEatsArrays(moves, eats);
 
         if (event.target.tagName === "TD" || "IMG") {
             //this help me to track after the clickes save the element we clicked on and add him to selected class
@@ -94,26 +110,32 @@ window.addEventListener('load', (e) => {
             here we going to save the current click and privus click
             if privus click is img and current click is in posible moves so move the piece
             */
+            if(clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)){
+                eats= [[],[]];
+            }
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
             } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
-                
-                let index = eats[0].indexOf(event.target.parentElement);
-                if (index !== -1) {
-                    eats[0][index].appendChild(clickes[0]);
-                    eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
-                }
-                index = eats[1].indexOf(event.target.parentElement);
-                if (index !== -1) {
-                    eats[0][index].appendChild(clickes[0]);
-                    eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
-                }
-                clickes.push(event.target);
+                /*  if the player press on piece and the piece == the other player and the privuse click was valid click
+                    cjech if the piece in eats array if yes eat the pice if not skip
+                    if the piece is the other player king end the game  */
 
-                if (event.target.src.toString().split('/').find((e) => e === "king.ico")) {
+                let index = eats[0].indexOf(event.target.parentElement);
+
+                if (index !== -1) {
+                    if(clickes[0].src.toString().split('/').find((e) => e === "white")){
+                        whiteEats.push(clickes[0]);
+                    }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
+                        blackEats.push(clickes[0]);
+                    }
+                    eats[0][index].appendChild(clickes[0]);
+                    eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
+                    tmp = true;
+                }
+                if (index !== -1 && event.target.src.toString().split('/').find((e) => e === "king.ico")) {
                     // here i break the game and show who is winning if some king was eating
                     divtable.style.display = "none";
                     let showWinning = document.getElementById("showWinning");
@@ -127,11 +149,38 @@ window.addEventListener('load', (e) => {
                     showWinning.appendChild(p);
                     showWinning.appendChild(input);
                 }
+
+                index = eats[1].indexOf(event.target.parentElement);
+
+                if (index !== -1) {
+                    if(clickes[0].src.toString().split('/').find((e) => e === "white")){
+                        whiteEats.push(clickes[0]);
+                    }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
+                        blackEats.push(clickes[0]);
+                    }
+                    eats[1][index].appendChild(clickes[0]);
+                    eats[1][index].removeChild(eats[1][index].getElementsByTagName("img")[0]);
+                    tmp = true;
+                }
+                if (index !== -1 && event.target.src.toString().split('/').find((e) => e === "king.ico")) {
+                    // here i break the game and show who is winning if some king was eating
+                    divtable.style.display = "none";
+                    let showWinning = document.getElementById("showWinning");
+                    let p = document.createElement("p");
+                    let input = document.createElement("input");
+                    input.type = "button";
+                    input.id = "playAgain";
+                    input.value = "Press to play again";
+                    p.innerText = turn.toUpperCase() + " YOU ARE THE WINNER";
+                    showWinning.style.display = "flex";
+                    showWinning.appendChild(p);
+                    showWinning.appendChild(input);
+                }
+                clickes.push(event.target);
             }
             if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1) {
                 //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
-                clickes = [];
                 if (turn === "white") {
                     reverseTurn = turn;
                     turn = "black";
@@ -140,11 +189,13 @@ window.addEventListener('load', (e) => {
                     turn = "white";
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
+                clickes = [];
+                eats = [[],[]];
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
-            }
-            if (clickes.length > 1 && eats.length > 0) {
+            }else if (clickes.length > 1 && tmp === true && eats.length > 0 ) {
                 // here i chacks if solider was eating if true switch turn else do noting
+                tmp = false;
                 for (let i = 0; i < eats.length; i++) {
                     for (let j = 0; j < eats[i].length; j++) {
                         if (clickes[1] === event.target || clickes[0] === event.target) {
@@ -157,18 +208,18 @@ window.addEventListener('load', (e) => {
                                 turn = "white";
                             }
                             visualTurn.textContent = "This is " + turn + " turn now";
+                            clickes = [];
+                            eats = [[],[]];
                             break;
                         }
                     }
                 }
-                eats = [[], []];
-                clickes = [];
             }
         }
     });
 
     for (let i = 0; i < 8; i++) {
-        //this loop draw the pieces to the board and make the board
+        //this loop make the board
         tr = document.createElement('tr');
         for (let j = 0; j < 8; j++) {
             td = document.createElement('td');
@@ -206,5 +257,8 @@ window.addEventListener('load', (e) => {
         table.appendChild(tr);
 
     }
+
+    backcolor.appendChild(divBlackEats);
     backcolor.appendChild(table);
+    backcolor.appendChild(divWhiteEats);
 });
