@@ -62,22 +62,6 @@ window.addEventListener('load', (e) => {
     divWhiteEats.classList.add("divVisualEats");
     divBlackEats.classList.add("divVisualEats");
 
-    for(let i = 0;i<whiteEats.length;i++){
-        //this shows what player was eaten
-        let visualWhiteEats = document.createElement("img");
-        visualWhiteEats.alt = "X";
-        visualWhiteEats.src = whiteEats[i];
-        divWhiteEats.appendChild(visualWhiteEats);
-    }
-    
-    for(let i = 0;i<blackEats.length;i++){
-        //this shows what player was eaten
-        let visualBlackEats = document.createElement("img");
-        visualBlackEats.alt = "X";
-        visualBlackEats.src = blackEats[i];
-        divBlackEats.appendChild(visualBlackEats);
-    }
-
     body.appendChild(divtable);
     divtable.appendChild(visualTurn);
     divtable.appendChild(backcolor);
@@ -127,9 +111,17 @@ window.addEventListener('load', (e) => {
 
                 if (index !== -1) {
                     if(clickes[0].src.toString().split('/').find((e) => e === "white")){
-                        whiteEats.push(clickes[0]);
+                        let visualWhiteEats = document.createElement("img");
+                        visualWhiteEats.alt = "X";
+                        visualWhiteEats.src = eats[0][index].getElementsByTagName("img")[0].src;
+                        visualWhiteEats.classList.add('eatenPieces');
+                        divWhiteEats.appendChild(visualWhiteEats);
                     }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
-                        blackEats.push(clickes[0]);
+                        let visualBlackEats = document.createElement("img");
+                        visualBlackEats.alt = "X";
+                        visualBlackEats.src = eats[0][index].getElementsByTagName("img")[0].src;
+                        visualBlackEats.classList.add('eatenPieces');
+                        divBlackEats.appendChild(visualBlackEats);
                     }
                     eats[0][index].appendChild(clickes[0]);
                     eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
@@ -154,9 +146,9 @@ window.addEventListener('load', (e) => {
 
                 if (index !== -1) {
                     if(clickes[0].src.toString().split('/').find((e) => e === "white")){
-                        whiteEats.push(clickes[0]);
+                        whiteEats.push(eats[1][index].getElementsByTagName("img")[0]);
                     }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
-                        blackEats.push(clickes[0]);
+                        blackEats.push(eats[1][index].getElementsByTagName("img")[0]);
                     }
                     eats[1][index].appendChild(clickes[0]);
                     eats[1][index].removeChild(eats[1][index].getElementsByTagName("img")[0]);

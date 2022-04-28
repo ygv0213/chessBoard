@@ -57,7 +57,7 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 30px;
     font-weight: 1000;
-    background-color: rgb(242, 70, 70);
+    background-color: rgb(119, 255, 104);
     border: 3px solid black;
     border-radius: 15px;
     padding-block: 3px;
@@ -65,7 +65,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    color: rgb(58, 226, 212);
+    color: rgb(16, 82, 77);
     margin-block: auto;
 }
 
@@ -76,7 +76,7 @@ body {
     align-items: center;
     width: calc(50px * 8 + 200px);
     height: calc(50px * 8 + 130px);
-    background-color: rgb(40, 219, 219);
+    background-color: rgb(154, 151, 246);
     border: 2.5px solid black;
 }
 
@@ -87,7 +87,7 @@ body {
     flex-direction: row;
     margin-bottom: 20px;
     width: 100%;
-    background-color: rgb(40, 219, 219);
+    background-color: rgb(154, 151, 246)
 }
 
 .divVisualEats{
@@ -95,12 +95,24 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    height: calc(50px * 8);
+    flex-wrap: nowrap;
+    height: calc(55px * 8);
     margin-inline: auto;
-    overflow-x: scroll;
+    overflow: scroll;
     scrollbar-width: none;
     border: 2px solid black;
     border-radius: 10px;
+}
+
+.eatenPieces{
+    margin-block: 5px;
+    outline: 3px solid rgb(0, 0, 0);
+    border-radius: 12px;
+    padding: 3px;
+    background-color: rgb(245, 159, 159);
+    width: 40px;
+    height: 40px;
+    margin: 10px;
 }
 
 .divVisualEats::-webkit-scrollbar{
