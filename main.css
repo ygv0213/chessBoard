@@ -1,11 +1,12 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 900px;
 }
-#choseColor1{
+
+#choseColor1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,7 +24,7 @@ body{
     border-radius: 15px;
 }
 
-#sendBtn{
+#sendBtn {
     font-size: 24px;
     font-weight: 900;
     font-family: monospace;
@@ -34,21 +35,23 @@ body{
     color: rgb(45, 116, 168);
 }
 
-.choseColor{
+.choseColor {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 250px;
     padding-block: 20px;
 }
-.choseColor2{
+
+.choseColor2 {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     height: 40px;
 }
-#visualTurn{
+
+#visualTurn {
     width: calc(50px * 8 + 17px);
     height: 30px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -66,7 +69,7 @@ body{
     margin-block: auto;
 }
 
-#divtable{
+#divtable {
     display: none;
     justify-content: space-around;
     flex-direction: column;
@@ -76,7 +79,8 @@ body{
     background-color: rgb(40, 219, 219);
     border: 2.5px solid black;
 }
-#backcolor{
+
+#backcolor {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,24 +91,35 @@ body{
     background-color: rgb(255, 255, 255);
 }
 
-table{
+table {
     border-collapse: collapse;
 }
-td{
+
+td {
     height: 50px;
     width: 50px;
     outline: 1px solid rgb(4, 4, 4);
     user-select: none;
 }
-tr:nth-child(odd) td:nth-child(even){
-    background-color: rgb(165, 165, 165);
-}
-tr:nth-child(even) td:nth-child(odd){
+
+tr:nth-child(odd) td:nth-child(even) {
     background-color: rgb(165, 165, 165);
 }
 
+tr:nth-child(even) td:nth-child(odd) {
+    background-color: rgb(165, 165, 165);
+}
 
-img{
+tr:nth-child(even) td:nth-child(even) {
+    background-color: rgb(255, 255, 255);
+}
+
+tr:nth-child(odd) td:nth-child(odd) {
+    background-color: rgb(255, 255, 255);
+}
+
+
+img {
     display: flex;
     justify-content: center;
     width: 50px;
@@ -113,17 +128,19 @@ img{
     margin-left: auto;
 }
 
-.selected{
-    background-color: rgb(252, 245, 110)!important;
-}
-.moves{
-    background-color: rgb(136, 255, 109)!important;
-}
-.eats{
-    background-color: rgb(240, 135, 135)!important;
+.selected {
+    background-color: rgb(252, 245, 110) !important;
 }
 
-#showWinning{
+.moves {
+    background-color: rgb(136, 255, 109) !important;
+}
+
+.eats {
+    background-color: rgb(240, 135, 135) !important;
+}
+
+#showWinning {
     display: none;
     flex-direction: column;
     justify-content: space-around;
@@ -134,7 +151,8 @@ img{
     border: 3px solid rgb(55, 0, 255);
     border-radius: 20px;
 }
-#playAgain{
+
+#playAgain {
     font-size: 28px;
     font-weight: 900;
     font-family: monospace;
@@ -145,7 +163,7 @@ img{
     border: 2px solid black;
 }
 
-#showWinning p{
+#showWinning p {
     display: flex;
     justify-content: space-around;
     align-items: center;

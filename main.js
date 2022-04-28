@@ -14,6 +14,7 @@ window.addEventListener('load', (e) => {
     let turn = ""; //this varible get the color from user
     let reverseTurn = undefined;
     if (turn === "white") {
+        //here i save the reverse player from the current turn to be used later
         reverseTurn = "black";
     } else {
         reverseTurn = "white";
@@ -34,7 +35,8 @@ window.addEventListener('load', (e) => {
         }
     });
 
-    showWinning.addEventListener('click', ()=>{
+    showWinning.addEventListener('click', () => {
+        //this reload the web-page if you clicked on play again butoon
         window.location.reload();
     });
 
@@ -97,21 +99,22 @@ window.addEventListener('load', (e) => {
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
-            }else if(event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1){
+            } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
+                
                 let index = eats[0].indexOf(event.target.parentElement);
-                if(index !== -1){
+                if (index !== -1) {
                     eats[0][index].appendChild(clickes[0]);
                     eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
                 }
                 index = eats[1].indexOf(event.target.parentElement);
-                if(index !== -1){
+                if (index !== -1) {
                     eats[0][index].appendChild(clickes[0]);
                     eats[0][index].removeChild(eats[0][index].getElementsByTagName("img")[0]);
                 }
-                eats = [[],[]];
-                clickes = [];
-                if(event.target.src.toString().split('/').find((e) => e === "king.ico")){
-                    //here i breake the game and show who is winning if king was eating
+                clickes.push(event.target);
+
+                if (event.target.src.toString().split('/').find((e) => e === "king.ico")) {
+                    // here i break the game and show who is winning if some king was eating
                     divtable.style.display = "none";
                     let showWinning = document.getElementById("showWinning");
                     let p = document.createElement("p");
@@ -134,10 +137,31 @@ window.addEventListener('load', (e) => {
                     turn = "black";
                 } else if (turn === "black") {
                     reverseTurn = turn;
-                    turn = "white";  
+                    turn = "white";
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
+                clickes = [];
+            }
+            if (clickes.length > 1 && eats.length > 0) {
+                // here i chacks if solider was eating if true switch turn else do noting
+                for (let i = 0; i < eats.length; i++) {
+                    for (let j = 0; j < eats[i].length; j++) {
+                        if (clickes[1] === event.target || clickes[0] === event.target) {
+                            //this is here changes the turn between players
+                            if (turn === "white") {
+                                reverseTurn = turn;
+                                turn = "black";
+                            } else if (turn === "black") {
+                                reverseTurn = turn;
+                                turn = "white";
+                            }
+                            visualTurn.textContent = "This is " + turn + " turn now";
+                            break;
+                        }
+                    }
+                }
+                eats = [[], []];
                 clickes = [];
             }
         }
