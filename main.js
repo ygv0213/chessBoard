@@ -109,12 +109,14 @@ window.addEventListener('load', (e) => {
             
             if (clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
+                eats = [[],[]];
             }
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
+                eats = [[],[]];
             } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
                 /*  if the player press on piece and the piece == the other player and the privuse click was valid click
                     check if the piece in eats array if yes eat the pice if not skip
@@ -196,8 +198,10 @@ window.addEventListener('load', (e) => {
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
                 clickes = [];
+                eats = [[],[]];
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
+                eats = [[],[]];
             } else if (clickes.length > 1 && tmp === true && eats.length > 0) {
                 // here i chacks if solider was eating if true switch turn else do noting
                 tmp = false;

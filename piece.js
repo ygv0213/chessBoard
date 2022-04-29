@@ -248,7 +248,6 @@ function clearMovesAndEatsArrays(moves, eats){
             for(let j=0;j<eats[i].length;j++){
                 eats[i][j].classList.remove('eats');
             }
-            eats[i] = [];
         }
     }
 }
