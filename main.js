@@ -107,6 +107,8 @@ window.addEventListener('load', (e) => {
             if privus click is img and current click is in posible moves so move the piece
             */
             
+            let row = event.target.parentElement.rowIndex;
+
             if (clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 eats = [[],[]];
@@ -199,6 +201,13 @@ window.addEventListener('load', (e) => {
                 visualTurn.textContent = "This is " + turn + " turn now";
                 clickes = [];
                 eats = [[],[]];
+                //this piece of code changes solider to quinn if is arrived to opposite side
+                if(row === 0 && event.target.childNodes[0].src.toString().split('/').find((e) => e === "black") === "black"){
+                    event.target.childNodes[0].src = "assetes/icons/black/quinn.ico";
+                }else if(row === 7 && event.target.childNodes[0].src.toString().split('/').find((e) => e === "white") === "white"){
+                    event.target.childNodes[0].src = "assetes/icons/white/quinn.ico";
+                } 
+
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 eats = [[],[]];
@@ -217,7 +226,13 @@ window.addEventListener('load', (e) => {
                                 turn = "white";
                             }
                             visualTurn.textContent = "This is " + turn + " turn now";
-                            clickes = [];    
+                            clickes = []; 
+                            //this piece of code changes solider to quinn if is arrived to opposite side
+                            if(row === 0 && event.target.childNodes[0].src.toString().split('/').find((e) => e === "black") === "black"){
+                                event.target.childNodes[0].src = "assetes/icons/black/quinn.ico";
+                            }else if(row === 7 && event.target.childNodes[0].src.toString().split('/').find((e) => e === "white") === "white"){
+                                event.target.childNodes[0].src = "assetes/icons/white/quinn.ico";
+                            } 
                             break;
                         }
                     }
