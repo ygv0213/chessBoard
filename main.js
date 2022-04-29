@@ -65,7 +65,7 @@ window.addEventListener('load', (e) => {
     body.appendChild(divtable);
     divtable.appendChild(visualTurn);
     divtable.appendChild(backcolor);
-    
+
     table.addEventListener('click', (event) => {
         //this here help to track who need to stay in class moves and who is not 
         //when you click on anather player the moves update to the new selected player
@@ -83,19 +83,32 @@ window.addEventListener('load', (e) => {
                 arrCount.shift();
             }
             if (event.target.tagName === "IMG") {
-                moves = [[], []];
+                
+                clearMovesAndEatsArrays(moves, eats);
+                //here i am
+                if (event.target.src.toString().split('/').find((e) => e === "solider.ico")) {
+                    if (event.target.src.toString().split('/').find((e) => e === "white") === "white") {
+                        if (event.target.parentElement.rowIndex === 7) {
+                            console.log('quinn')
+                        }
+                    } else if (event.target.src.toString().split('/').find((e) => e === "black") === "black") {
+                        if (event.target.parentElement.rowIndex === 0) {
+                            console.log('quinn')
+                        }
+                    }
+                }
             }
         }
 
         posibleMoves(event, table, moves, eats, turn);//shows the posible moves to evry click
-
         if (event.target.tagName === "TD" || "IMG") {
             /*
             here we going to save the current click and privus click
             if privus click is img and current click is in posible moves so move the piece
             */
-            if(clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)){
-                eats= [[],[]];
+            
+            if (clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
+                clickes = [];
             }
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
@@ -104,19 +117,19 @@ window.addEventListener('load', (e) => {
                 clickes.push(event.target);
             } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
                 /*  if the player press on piece and the piece == the other player and the privuse click was valid click
-                    cjech if the piece in eats array if yes eat the pice if not skip
+                    check if the piece in eats array if yes eat the pice if not skip
                     if the piece is the other player king end the game  */
 
                 let index = eats[0].indexOf(event.target.parentElement);
 
                 if (index !== -1) {
-                    if(clickes[0].src.toString().split('/').find((e) => e === "white")){
+                    if (clickes[0].src.toString().split('/').find((e) => e === "white")) {
                         let visualWhiteEats = document.createElement("img");
                         visualWhiteEats.alt = "X";
                         visualWhiteEats.src = eats[0][index].getElementsByTagName("img")[0].src;
                         visualWhiteEats.classList.add('eatenPieces');
                         divWhiteEats.appendChild(visualWhiteEats);
-                    }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
+                    } else if (clickes[0].src.toString().split('/').find((e) => e === "black")) {
                         let visualBlackEats = document.createElement("img");
                         visualBlackEats.alt = "X";
                         visualBlackEats.src = eats[0][index].getElementsByTagName("img")[0].src;
@@ -145,9 +158,9 @@ window.addEventListener('load', (e) => {
                 index = eats[1].indexOf(event.target.parentElement);
 
                 if (index !== -1) {
-                    if(clickes[0].src.toString().split('/').find((e) => e === "white")){
+                    if (clickes[0].src.toString().split('/').find((e) => e === "white")) {
                         whiteEats.push(eats[1][index].getElementsByTagName("img")[0]);
-                    }else if(clickes[0].src.toString().split('/').find((e) => e === "black")){
+                    } else if (clickes[0].src.toString().split('/').find((e) => e === "black")) {
                         blackEats.push(eats[1][index].getElementsByTagName("img")[0]);
                     }
                     eats[1][index].appendChild(clickes[0]);
@@ -173,6 +186,7 @@ window.addEventListener('load', (e) => {
             if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1) {
                 //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
+                clickes = [];
                 if (turn === "white") {
                     reverseTurn = turn;
                     turn = "black";
@@ -182,10 +196,9 @@ window.addEventListener('load', (e) => {
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
                 clickes = [];
-                eats = [[],[]];
             } else if (clickes.length === 2 && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
-            }else if (clickes.length > 1 && tmp === true && eats.length > 0 ) {
+            } else if (clickes.length > 1 && tmp === true && eats.length > 0) {
                 // here i chacks if solider was eating if true switch turn else do noting
                 tmp = false;
                 for (let i = 0; i < eats.length; i++) {
@@ -200,8 +213,7 @@ window.addEventListener('load', (e) => {
                                 turn = "white";
                             }
                             visualTurn.textContent = "This is " + turn + " turn now";
-                            clickes = [];
-                            eats = [[],[]];
+                            clickes = [];    
                             break;
                         }
                     }

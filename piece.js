@@ -27,6 +27,7 @@ function posibleMoves(event, table, moves, eats, turn) {
     if (event.target.tagName === "IMG") {
         let row = event.target.parentElement.parentElement.rowIndex;
         let cell = event.target.parentElement.cellIndex;
+        clearMovesAndEatsArrays(moves, eats);
         if (event.target.getAttribute("src") === "assetes/icons/" + turn + "/solider.ico") {
             //here i save the reverse turn
             let reverseTurn = "";
@@ -241,12 +242,13 @@ function clearMovesAndEatsArrays(moves, eats){
         }
         moves[1] = [];
     }
-
-    if (eats[1].length > 0) {
-        eats[0] = eats[1];
-        for (let i = 0; i < eats[1].length; i++) {
-            eats[1][i].classList.remove("eats");
+    
+    if(eats.length >= 1){
+        for (let i=0;i<eats.length;i++){
+            for(let j=0;j<eats[i].length;j++){
+                eats[i][j].classList.remove('eats');
+            }
+            eats[i] = [];
         }
-        eats[1] = [];
     }
 }
