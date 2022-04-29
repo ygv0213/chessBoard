@@ -92,13 +92,10 @@ body {
 
 .divVisualEats{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: column;
-    flex-wrap: nowrap;
     height: calc(55px * 8);
     margin-inline: auto;
-    overflow: scroll;
+    overflow: auto;
     scrollbar-width: none;
     border: 2px solid black;
     border-radius: 10px;

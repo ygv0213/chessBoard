@@ -243,11 +243,11 @@ function clearMovesAndEatsArrays(moves, eats){
         moves[1] = [];
     }
     
-    if(eats.length >= 1){
-        for (let i=0;i<eats.length;i++){
-            for(let j=0;j<eats[i].length;j++){
-                eats[i][j].classList.remove('eats');
-            }
+    if (eats[1].length > 0) {
+        eats[0] = eats[1];
+        for (let i = 0; i < eats[1].length; i++) {
+            eats[1][i].classList.remove("eats");
         }
+        eats[1] = [];
     }
 }
