@@ -72,6 +72,10 @@ window.addEventListener('load', (e) => {
                     }
                     visualTurn.textContent = "This is " + turn + " turn now";
                     clearInterval(clockInterval);
+                    p.textContent = turnTime;
+                    clockInterval = setInterval(() => {
+                        p.textContent --;
+                    }, 1000);
                 }, turnTime*1000)
             }
         }
@@ -237,6 +241,10 @@ window.addEventListener('load', (e) => {
                         }
                         visualTurn.textContent = "This is " + turn + " turn now";
                         clearInterval(clockInterval);
+                        p.textContent = turnTime;
+                        clockInterval = setInterval(() => {
+                            p.textContent --;
+                        }, 1000);
                     }, turnTime*1000)
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
@@ -280,6 +288,10 @@ window.addEventListener('load', (e) => {
                                     }
                                     visualTurn.textContent = "This is " + turn + " turn now";
                                     clearInterval(clockInterval);
+                                    p.textContent = turnTime;
+                                    clockInterval = setInterval(() => {
+                                        p.textContent --;
+                                    }, 1000);
                                 }, turnTime*1000)
                             }
                             visualTurn.textContent = "This is " + turn + " turn now";
