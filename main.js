@@ -112,8 +112,6 @@ window.addEventListener('load', (e) => {
         //this here help to track who need to stay in class moves and who is not 
         //when you click on anather player the moves update to the new selected player
 
-        clearMovesAndEatsArrays(moves, eats);
-
         if (event.target.tagName === "TD" || "IMG") {
             //this help me to track after the clickes save the element we clicked on and add him to selected class
             arrCount.push(event.target);
@@ -124,11 +122,9 @@ window.addEventListener('load', (e) => {
                 arrCount[0].classList.remove("selected");
                 arrCount.shift();
             }
-            if (event.target.tagName === "IMG") {
-                clearMovesAndEatsArrays(moves, eats);
-            }
         }
 
+        clearMovesAndEatsArrays(moves, eats);
         posibleMoves(event, table, moves, eats, turn);//shows the posible moves to evry click
         if (event.target.tagName === "TD" || "IMG") {
             /*
@@ -140,14 +136,20 @@ window.addEventListener('load', (e) => {
 
             if (clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
-                eats = [[],[]];
             }
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
-                eats = [[],[]];
+                if (eats[1].length > 0) {
+                    eats[0] = eats[1];
+                    for (let i = 0; i < eats[1].length; i++) {
+                        eats[1][i].classList.remove("eats");
+                    }
+                    eats[1] = [];
+                }
+                
             } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
                 /*  if the player press on piece and the piece == the other player and the privuse click was valid click
                     check if the piece in eats array if yes eat the pice if not skip
@@ -216,6 +218,7 @@ window.addEventListener('load', (e) => {
                 }
                 clickes.push(event.target);
             }
+            
             if (clickes.length === 2 && moves[0].indexOf(clickes[1]) !== -1) {
                 //this is here changes the turn between players
                 clickes[1].appendChild(clickes[0]);
