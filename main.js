@@ -56,6 +56,11 @@ window.addEventListener('load', (e) => {
                     break;
             }
                    
+            if(turnTime === 0){
+                divtable.removeChild(p);
+                divtable.style.height = "calc(50px * 8 + 130px)";
+                divtable.style.paddingTop = "10px"
+            }
             if(turnTime != 0){
                 p.textContent = turnTime;
                 clockInterval = setInterval(() => {
@@ -356,5 +361,5 @@ window.addEventListener('load', (e) => {
     backcolor.appendChild(divBlackEats);
     backcolor.appendChild(table);
     backcolor.appendChild(divWhiteEats);
-    divtable.appendChild(p)
+    divtable.appendChild(p);
 });
