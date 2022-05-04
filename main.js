@@ -72,10 +72,6 @@ window.addEventListener('load', (e) => {
                     }
                     visualTurn.textContent = "This is " + turn + " turn now";
                     clearInterval(clockInterval);
-                    p.textContent = turnTime;
-                    clockInterval = setInterval(() => {
-                        p.textContent --;
-                    }, 1000);
                 }, turnTime*1000)
             }
         }
@@ -213,7 +209,6 @@ window.addEventListener('load', (e) => {
                     showWinning.style.display = "flex";
                     showWinning.appendChild(p);
                     showWinning.appendChild(input);
-                    clearInterval(interval);
                 }
                 clickes.push(event.target);
             }
@@ -232,10 +227,6 @@ window.addEventListener('load', (e) => {
                    
                 if(turnTime != 0){
                     p.textContent = turnTime;
-                    clockInterval = setInterval(() => {
-                        p.textContent --;
-                    }, 1000);
-                    
                     interval = setInterval(()=>{
                         if (turn === "white") {
                             reverseTurn = turn;
@@ -246,10 +237,6 @@ window.addEventListener('load', (e) => {
                         }
                         visualTurn.textContent = "This is " + turn + " turn now";
                         clearInterval(clockInterval);
-                        p.textContent = turnTime;
-                        clockInterval = setInterval(() => {
-                            p.textContent --;
-                        }, 1000);
                     }, turnTime*1000)
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
@@ -278,6 +265,22 @@ window.addEventListener('load', (e) => {
                             } else if (turn === "black") {
                                 reverseTurn = turn;
                                 turn = "white";
+                            }
+                            clearInterval(interval);
+                               
+                            if(turnTime != 0){
+                                p.textContent = turnTime;
+                                interval = setInterval(()=>{
+                                    if (turn === "white") {
+                                        reverseTurn = turn;
+                                        turn = "black";
+                                    } else if (turn === "black") {
+                                        reverseTurn = turn;
+                                        turn = "white";
+                                    }
+                                    visualTurn.textContent = "This is " + turn + " turn now";
+                                    clearInterval(clockInterval);
+                                }, turnTime*1000)
                             }
                             visualTurn.textContent = "This is " + turn + " turn now";
                             clickes = []; 
