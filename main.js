@@ -10,20 +10,25 @@ window.addEventListener('load', (e) => {
     let table = document.createElement('table');
     let choseColor = document.getElementById("choseColor1");
     let color = document.getElementsByName("color");
-
+    let select = document.getElementById("select");
     let tr = document.createElement('tr');
     let td = document.createElement('td');
-
+    let p = document.createElement("p");
+    p.textContent = undefined;
+    p.id = "clock";
     let arrCount = []; //help to handle selected items on the board
     let turn = ""; //this varible get the color from user and save it as turn
     let reverseTurn = undefined;
+    let selectedValue = undefined;
+    let turnTime = 0;
+    let interval = undefined;
+    let clockInterval = undefined;
     //here i save the reverse player from the current turn to be used later
     if (turn === "white") {
         reverseTurn = "black";
     } else {
         reverseTurn = "white";
     }
-
     choseColor.addEventListener('click', (event) => {
         //this function chenges the turn varible when the player click on the start game button
         if (event.target.id === "sendBtn") {
@@ -36,6 +41,43 @@ window.addEventListener('load', (e) => {
             visualTurn.textContent = "This is " + turn + " turn now";
             visualTurn.id = "visualTurn";
             divtable.style.display = "flex";
+
+        
+            selectedValue = select.options[select.selectedIndex].value;
+            switch(selectedValue){
+                case ("veryhard"):
+                    turnTime = 30;
+                    break;
+                case ("hard"):
+                    turnTime = 60;
+                    break;
+                case ("medium"):
+                    turnTime = 90;
+                    break;
+            }
+                   
+            if(turnTime != 0){
+                p.textContent = turnTime;
+                clockInterval = setInterval(() => {
+                    p.textContent --;
+                }, 1000);
+                
+                interval = setInterval(()=>{
+                    if (turn === "white") {
+                        reverseTurn = turn;
+                        turn = "black";
+                    } else if (turn === "black") {
+                        reverseTurn = turn;
+                        turn = "white";
+                    }
+                    visualTurn.textContent = "This is " + turn + " turn now";
+                    clearInterval(clockInterval);
+                    p.textContent = turnTime;
+                    clockInterval = setInterval(() => {
+                        p.textContent --;
+                    }, 1000);
+                }, turnTime*1000)
+            }
         }
     });
 
@@ -83,20 +125,7 @@ window.addEventListener('load', (e) => {
                 arrCount.shift();
             }
             if (event.target.tagName === "IMG") {
-                
                 clearMovesAndEatsArrays(moves, eats);
-                //here i am
-                if (event.target.src.toString().split('/').find((e) => e === "solider.ico")) {
-                    if (event.target.src.toString().split('/').find((e) => e === "white") === "white") {
-                        if (event.target.parentElement.rowIndex === 7) {
-                            console.log('quinn')
-                        }
-                    } else if (event.target.src.toString().split('/').find((e) => e === "black") === "black") {
-                        if (event.target.parentElement.rowIndex === 0) {
-                            console.log('quinn')
-                        }
-                    }
-                }
             }
         }
 
@@ -184,6 +213,7 @@ window.addEventListener('load', (e) => {
                     showWinning.style.display = "flex";
                     showWinning.appendChild(p);
                     showWinning.appendChild(input);
+                    clearInterval(interval);
                 }
                 clickes.push(event.target);
             }
@@ -197,6 +227,30 @@ window.addEventListener('load', (e) => {
                 } else if (turn === "black") {
                     reverseTurn = turn;
                     turn = "white";
+                }
+                clearInterval(interval);
+                   
+                if(turnTime != 0){
+                    p.textContent = turnTime;
+                    clockInterval = setInterval(() => {
+                        p.textContent --;
+                    }, 1000);
+                    
+                    interval = setInterval(()=>{
+                        if (turn === "white") {
+                            reverseTurn = turn;
+                            turn = "black";
+                        } else if (turn === "black") {
+                            reverseTurn = turn;
+                            turn = "white";
+                        }
+                        visualTurn.textContent = "This is " + turn + " turn now";
+                        clearInterval(clockInterval);
+                        p.textContent = turnTime;
+                        clockInterval = setInterval(() => {
+                            p.textContent --;
+                        }, 1000);
+                    }, turnTime*1000)
                 }
                 visualTurn.textContent = "This is " + turn + " turn now";
                 clickes = [];
@@ -284,4 +338,5 @@ window.addEventListener('load', (e) => {
     backcolor.appendChild(divBlackEats);
     backcolor.appendChild(table);
     backcolor.appendChild(divWhiteEats);
+    divtable.appendChild(p)
 });
