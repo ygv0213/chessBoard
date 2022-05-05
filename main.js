@@ -138,22 +138,16 @@ window.addEventListener('load', (e) => {
             */
             
             let row = event.target.parentElement.rowIndex;
-
             if (clickes.length === 1 && event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
+                eats = [[],[]];
             }
             if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === turn)) {
                 clickes = [];
                 clickes.push(event.target);
             } else if (clickes.length === 1 && event.target.tagName === "TD") {
                 clickes.push(event.target);
-                if (eats[1].length > 0) {
-                    eats[0] = eats[1];
-                    for (let i = 0; i < eats[1].length; i++) {
-                        eats[1][i].classList.remove("eats");
-                    }
-                    eats[1] = [];
-                }
+                eats = [[],[]];
                 
             } else if (event.target.tagName === "IMG" && event.target.src.toString().split('/').find((e) => e === reverseTurn) && clickes.length === 1) {
                 /*  if the player press on piece and the piece == the other player and the privuse click was valid click
